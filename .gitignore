@@ -1,0 +1,32 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+studentassitantsystem_client/node_modules
+studentassitantsystem_server/node_modules
+
+# testing
+studentassitantsystem_client/coverage
+studentassitantsystem_server/coverage
+
+# production
+studentassitantsystem_client/build
+studentassitantsystem_server/build
+
+# misc
+studentassitantsystem_client/.DS_Store
+studentassitantsystem_client/.env.local
+studentassitantsystem_client/.env.development.local
+studentassitantsystem_client/.env.test.local
+studentassitantsystem_client/.env.production.local
+studentassitantsystem_server/.DS_Store
+studentassitantsystem_server/.env.local
+studentassitantsystem_server/.env.development.local
+studentassitantsystem_server/.env.test.local
+studentassitantsystem_server/.env.production.local
+
+studentassitantsystem_client/npm-debug.log*
+studentassitantsystem_client/yarn-debug.log*
+studentassitantsystem_client/yarn-error.log*
+studentassitantsystem_server/npm-debug.log*
+studentassitantsystem_server/yarn-debug.log*
+studentassitantsystem_server/yarn-error.log*
