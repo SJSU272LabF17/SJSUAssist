@@ -1,7 +1,7 @@
 # Project-Team-8
 
 Team Members:
-Aviral Kumar
-Jay Desai
-Sai Teja Desu
-Varun Shah
+1)  Aviral Kumar
+2)  Jay Desai
+3)  Sai Teja Desu
+4)  Varun Shah
