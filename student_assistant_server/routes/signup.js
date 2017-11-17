@@ -21,7 +21,11 @@ router.post('/doSignUp', function(req, res, next){
             firstname : req.body.firstname,
             lastname : req.body.lastname,
             username : req.body.username,
-            hashpassword : bcrypt.hashSync(req.body.password, salt)
+            hashpassword : bcrypt.hashSync(req.body.password, salt),
+            gender:'',
+            skillset:[],
+            issues_raised:[],
+            issues_resolved:[]
         };
 
         mongo.connect(mongoURL, function () {
@@ -47,24 +51,24 @@ router.post('/doSignUp', function(req, res, next){
                         console.log(result1.insertedCount);
                         if (result1.insertedCount === 1) {
                             console.log("Sign up successful");
-                            let userprofilecollection = mongo.collection("userprofile");
-                            let profiledata = {
-                                overview : "",
-                                work: "",
-                                education: "",
-                                contactinfo: "",
-                                lifeevents: "",
-                                music: false,
-                                sports: false,
-                                reading: false,
-                                _id : data.username
-                            };
-                            userprofilecollection.insertOne(profiledata ,function (err, result2) {
-                                console.log(result2);
-                                if(err){
-                                    console.log(err);
-                                    throw "Error while adding data into userprofile table";
-                                }
+                            // let userprofilecollection = mongo.collection("userprofile");
+                            // let profiledata = {
+                            //     overview : "",
+                            //     work: "",
+                            //     education: "",
+                            //     contactinfo: "",
+                            //     lifeevents: "",
+                            //     music: false,
+                            //     sports: false,
+                            //     reading: false,
+                            //     _id : data.username
+                            // };
+                            // userprofilecollection.insertOne(profiledata ,function (err, result2) {
+                            //     console.log(result2);
+                            //     if(err){
+                            //         console.log(err);
+                            //         throw "Error while adding data into userprofile table";
+                            //     }
                                 act.insertIntoActivity(function (err, activityInserted) {
                                     if(err){
                                         console.log(err);
@@ -86,7 +90,7 @@ router.post('/doSignUp', function(req, res, next){
                                         // })
                                     }
                                 },data.username, "signup");
-                            });
+                            // });
                         }
                     });
                 }
