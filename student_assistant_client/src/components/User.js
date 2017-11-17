@@ -5,6 +5,8 @@ import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import Activity from './Activity';
 import EditProfile from './EditProfile';
+import Home from './Home';
+import Issues from './Issues';
 
 class User extends Component {
 
@@ -99,11 +101,34 @@ class User extends Component {
                                         <div className="row">
                                             <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/home")})}>Home</button>
                                         </div>
+                                        <div className="row">
+                                            <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/issues")})}>Issues</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                                 <Switch>
+                                    <Route path="/user/home" render={() => (
+                                        <div>
+                                            <Home
+                                                username={this.props.username}
+                                                handlePageChange={this.props.handlePageChange}
+                                                redirectToFile = {this.redirectToFile}
+                                                handleShare = {this.handleShare}
+                                                handleFileDownload = {this.handleFileDownload}
+                                            />
+                                        </div>
+                                    )}/>
+                                    <Route path="/user/issues" render={() => (
+                                        <div>
+                                            <Issues
+                                                handlePageChange={this.props.handlePageChange}
+                                                handleShare = {this.handleShare}
+                                                handleFileDownload = {this.handleFileDownload}
+                                            />
+                                        </div>
+                                    )}/>
                                     <Route path="/user/profile" render={() => (
                                         <div>
                                             <Profile
