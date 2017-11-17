@@ -66,35 +66,23 @@ export const doLogout = (payload) =>
             return error;
         });
 
-export const getDirectoryData = (payload) =>
-    fetch(`${api}/users/getDirData`,{
-        method:'POST',
-        headers: {
+export const getSkillSets = () =>
+    fetch(`${api}/users/getskillsets`,{
+        method:'GET',
+        /*headers: {
             ...headers,
             'Content-Type': 'application/json'
-        },
-        credentials:'include',
-        body: JSON.stringify(payload)
+        },*/
+        credentials:'include'
+        // body: JSON.stringify(payload)
     }).then(res => {return res;})
         .catch(error => {
             console.log("This is error.");
             return error;
         });
 
-export const uploadFile = (payload) =>
-    fetch(`${api}/users/upload`, {
-        method: 'POST',
-        body: payload,
-        credentials:'include'
-    }).then(res => {
-        return res.status;
-    }).catch(error => {
-        console.log("This is error");
-        return error;
-    });
-
-export const createDirectory = (payload) =>
-    fetch(`${api}/users/createDir`, {
+export const addIssue = (payload) =>
+    fetch(`${api}/users/addissue`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -104,12 +92,27 @@ export const createDirectory = (payload) =>
         credentials:'include'
     }).then(res => {
         return res;
-    })
+    }).catch(error => {
+        console.log("This is error");
+        return error;
+
+    });
+
+
+export const getOpenIssues = () =>
+    fetch(`${api}/users/getopenissues`,{
+        method:'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials:'include'
+        // body: JSON.stringify(payload)
+    }).then(res => {return res;})
         .catch(error => {
-            console.log("This is error");
+            console.log("This is error.");
             return error;
         });
-
 
 export const sendDirectorayPath = (payload) =>
     fetch(`${api}/users/setdirPath`, {
