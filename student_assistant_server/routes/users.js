@@ -144,6 +144,192 @@ router.get('/getprofile', function (req, res, next) {
     }
 });
 
+router.get('/getskillsets', function (req, res, next) {
+    console.log("Here O m");
+    try {
+        console.log("In fetching profile");
+        if(req.session.username!==null || req.session.username!==undefined) {
+            let username = req.session.username;
+            mongo.connect(mongoURL,function () {
+                let skillset = mongo.collection("skillset");
+                skillset.find({}).toArray(function (err, results) {
+                    console.log(results);
+                    if (err) {
+                        throw err;
+                    }
+                    else {
+                        if (results.length > 0) {
+                            res.status(201).send(results);
+                        }
+                        else if (results.length === 0) {
+                            res.status(204).end();
+                        }
+                        else {
+                            res.status(301).send({"message":"Failed to fetch Profile Data"});
+                        }
+                    }
+
+                });
+            });
+        }
+        else{
+            res.status(203).send({"message":"Session Expired. Please Login Again"});
+        }
+    }
+    catch (e){
+        console.log(e);
+        console.log("error");
+        res.status(301).send({"message" : "Error while fetching activity data"});
+    }
+});
+
+router.post('/addissue', function (req, res, next) {
+    try {
+        console.log("In fetching activity");
+        if(req.session.username!==null || req.session.username!==undefined) {
+            let username = req.session.username;
+            let data = req.body;
+            mongo.connect(mongoURL, function () {
+
+                let users = mongo.collection("users");
+
+                users.updateOne({_id: username}, {
+                    $push: {
+                        issues_raised: {
+                            _id: new ObjectId(),
+                            topic: data.skillId,
+                            issuecontent: data.issueContent,
+                            isopen : true
+                        }
+                    }
+                }, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    if(result.result.nModified===1){
+                        res.status(201).send({"message":"Issue added successfully"});
+                    }
+                    else {
+                        res.status(301).send({"message":"Failed to add Issue"});
+                    }
+                });
+
+            });
+        }
+        else{
+            res.status(203).send({"message":"Session Expired. Please Login Again"});
+        }
+    }
+    catch (e){
+        console.log(e);
+        res.status(301).send({"message" : "Error while fetching activity data"});
+    }
+});
+
+router.post('/getopenissues', function (req, res, next) {
+    try {
+        if(req.session.username!==null || req.session.username!==undefined) {
+            let username = req.session.username;
+            let jsonObj=[];
+            mongo.connect(mongoURL, function () {
+
+                let users = mongo.collection("users");
+
+                users.aggregate([
+                    {
+                        $match:
+                            {
+                                '_id': username
+                            }
+                    },
+                    {
+                        $project:
+                            {
+                                issues_raised:1,
+                                /*openIssues:
+                                    {
+                                        $filter:
+                                            {
+                                                input: '$issues_raised',
+                                                as: 'issue',
+                                                cond:
+                                                    {
+                                                        $eq:['$$issue.isopen', true]
+                                                    }
+                                            }
+                                    }*/
+                            }
+                    }
+                ], function (err, result) {
+                    if(err){
+                        console.log(err);
+                        throw err;
+                    }
+                    else
+                    {
+                        console.log(result[0].issues_raised);
+                        console.log(result[0].issues_raised.length);
+                        if(result[0].issues_raised){
+                            if(result[0].issues_raised.length>0){
+                                let skillset = mongo.collection("skillset");
+                                // for(let i=0;i<result[0].issues_raised.length;i++){
+                                result[0].issues_raised.map((issue)=>{
+                                    let temp={};
+                                    temp["id"]=issue._id;
+                                    temp["issuecontent"]=issue.issuecontent;
+                                    temp["isopen"]=issue.isopen;
+                                    skillset.find({_id:ObjectId(issue.topic)}).toArray(function (err, result1) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        else {
+                                            console.log("From Skillset");
+                                            console.log(result1);
+                                            if (result1.length === 1) {
+                                                temp["topic"]=result1[0].skillname;
+                                                jsonObj.push(temp);
+                                                if(jsonObj.length===result[0].issues_raised.length){
+                                                    res.status(201).send(jsonObj);
+                                                }
+                                            }
+                                            else {
+                                                res.status(301).send({"message": "Failed to fetch Profile Data"});
+                                            }
+                                        }
+
+                                    });
+                                });
+
+                                // }
+                                // res.status(201).send(result[0].issues_raised);
+                            }
+                            else if(result[0].issues_raised.length===0){
+                                res.status(204).send({"message":"No Open Issues or Closed added"});
+                            }
+                            else {
+                                res.status(301).send({"message":"Failed to fetch Issue"});
+                            }
+                        }
+                        else {
+                            res.status(301).send({"message":"Failed to fetch Issue"});
+                        }
+                    }
+
+                });
+
+            });
+        }
+        else{
+            res.status(203).send({"message":"Session Expired. Please Login Again"});
+        }
+    }
+    catch (e){
+        console.log(e);
+        res.status(301).send({"message" : "Error while fetching activity data"});
+    }
+});
+
 deleteFromDatabase = ((name, path) => {
     try{
         console.log("Delete here: "+name+"   "+path);
