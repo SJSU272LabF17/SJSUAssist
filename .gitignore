@@ -12,6 +12,13 @@ student_assistant_server/coverage
 student_assistant_client/build
 student_assistant_server/build
 
+#Idea
+# production
+student_assistant_client/.idea
+student_assistant_server/.idea
+student_assistant_client/.idea/*
+student_assistant_server/.idea/*
+
 # misc
 student_assistant_client/.DS_Store
 student_assistant_client/.env.local
