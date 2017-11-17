@@ -14,6 +14,8 @@ student_assistant_server/build
 
 #Idea
 # production
+.idea
+.idea/*
 student_assistant_client/.idea
 student_assistant_server/.idea
 student_assistant_client/.idea/*
