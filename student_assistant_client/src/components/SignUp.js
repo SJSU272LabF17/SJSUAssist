@@ -19,6 +19,7 @@ class SignUp extends Component{
 
     render(){
         return(
+            <div class="move">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-sm-10 col-md-10 col-lg-10 col-xs-10">
@@ -30,7 +31,8 @@ class SignUp extends Component{
                                     {/*<Link to={'/prelogin/login'} component={Login}>Login</Link>*/}
                                     <Link to={'/home/login'} component={Login}>Login</Link>
                                 </div>
-                                <form className="form-horizontal">
+                            
+                                <form className="form-horizontal" id="formb">
                                     <div className="form-group">
                                         <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                             <input
@@ -103,6 +105,45 @@ class SignUp extends Component{
                                         />
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                        <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                            <input
+                                                type="email"
+                                                className="form-control"
+                                                name="inputUsername"
+                                                id="inputUsername"
+                                                placeholder="StudentID"
+                                                required
+                                                onChange={(event) => {
+                                                    this.setState({
+                                                            ...this.state,
+                                                            username: event.target.value
+                                                    })
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                       
+                                       <div className="form-group">
+                                        <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                            <input
+                                                type="email"
+
+                                                className="form-control"
+                                                name="inputUsername"
+                                                id="inputUsername"
+                                                placeholder="DateOfBirth"
+                                                required
+                                                onChange={(event) => {
+                                                    this.setState({
+                                                            ...this.state,
+                                                            username: event.target.value
+                                                    })
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                   
                                     {/*<div className="form-group">
                                         <div className="col-sm-8 col-md-8 col-lg-8">
                                             <input type="password" className="form-control"
@@ -117,17 +158,22 @@ class SignUp extends Component{
                                               name="inputaddress" id="inputaddress" placeholder="Address"></textarea>
                                         </div>
                                     </div>*/}
+
+
                                     <div className="form-group">
                                         <div className="col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
                                             <input type="button" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
                                                    onClick={()=>this.props.handleSignUp(this.state)} value="Sign Up"/>
                                         </div>
                                     </div>
+
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }
