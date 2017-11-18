@@ -28,6 +28,8 @@ class Issues extends Component {
         API.getSession().then((response)=>{
             if(response.status===201){
                 console.log("session active");
+                this.getOpenIssues();
+                this.getSkillSets();
             }
             else if(response.status===203){
                 this.props.handlePageChange("/");
@@ -37,29 +39,11 @@ class Issues extends Component {
             }
         });
 
-        API.getSkillSets().then((response)=>{
-            if(response.status===201){
-                response.json().then((data)=>{
-                    this.setState({
-                        ...this.state,
-                        skills:data
-                    })
-                })
-            }
-            else if(response.status===204) {
-                this.setState({
-                    ...this.state,
-                    skills:{}
-                })
-            }
-            else {
-                this.setState({
-                    ...this.state,
-                    message:"Error while fetching skills"
-                })
-            }
-        });
 
+
+    }
+
+    getOpenIssues = (()=>{
         API.getOpenIssues().then((response)=>{
             console.log(response.status);
             if(response.status===201){
@@ -87,7 +71,32 @@ class Issues extends Component {
                 });
             }
         });
-    }
+    });
+
+    getSkillSets = (()=>{
+        API.getSkillSets().then((response)=>{
+            if(response.status===201){
+                response.json().then((data)=>{
+                    this.setState({
+                        ...this.state,
+                        skills:data
+                    })
+                })
+            }
+            else if(response.status===204) {
+                this.setState({
+                    ...this.state,
+                    skills:{}
+                })
+            }
+            else {
+                this.setState({
+                    ...this.state,
+                    message:"Error while fetching skills"
+                })
+            }
+        });
+    });
 
     submitIssue = (()=>{
         console.log(this.issueData);
@@ -98,6 +107,8 @@ class Issues extends Component {
                     ...this.state,
                     showRaiseIssueTab : false
                 });
+                this.getOpenIssues();
+                this.getSkillSets();
             }
         });
     });
