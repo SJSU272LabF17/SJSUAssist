@@ -11,6 +11,7 @@ require('./routes/passport')(passport);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var signup = require('./routes/signup');
+var openissues = require('./routes/openissues');
 
 var mongoSessionURL = "mongodb://localhost:27017/student_assistant";
 var expressSessions = require("express-session");
@@ -54,6 +55,7 @@ app.use(passport.initialize());
 app.use('/', index);
 app.use('/users', users);
 app.use('/signup', signup);
+app.use('/openissues', openissues);
 
 app.post('/login/doLogout', function(req,res) {
     console.log(req.session.user);

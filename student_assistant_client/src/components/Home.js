@@ -30,7 +30,13 @@ class User extends Component {
         });
     }
 
+    // Jay Desai Changes for fetching open issue list
     componentDidMount(){
+        var payload;
+        API.currentissuelist(payload).
+        then((response)=>{
+            console.log(response);
+        });
     }
 
     componentDidUpdate(){
@@ -48,6 +54,7 @@ class User extends Component {
 
         return (
             <div className="container-fluid">
+
             </div>
         );
     }
