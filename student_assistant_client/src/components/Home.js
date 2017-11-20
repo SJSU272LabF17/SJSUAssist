@@ -60,11 +60,29 @@ class User extends Component {
         return true;
     }
 
+    display()
+    {
+        return this.props.issues.map((issues,index) =>{
+            return(
+                <div>
+                    <h4>
+                    {issues.issues.cat}
+                    {issues.issues.id}
+                    </h4>
+                </div>
+            )
+        });
+    }
+
     render() {
 
         return (
-            <div className="container-fluid">
 
+            <div className="container-fluid">
+                <h1>
+                    Open Issues
+                </h1>
+                {this.display()}
             </div>
         );
     }
@@ -77,6 +95,18 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, mapDispatchToProps)(User);
+function mapStateToProps(state) {
+    const issues = Object.keys(state.openissues).map((items) => (
+        {
+            'issues' : state.openissues[items]
+
+
+        }
+    ));
+
+    return {issues};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
 
 //export default User;
