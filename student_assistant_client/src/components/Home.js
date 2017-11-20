@@ -33,10 +33,14 @@ class User extends Component {
     // Jay Desai Changes for fetching open issue list
     componentDidMount(){
         var payload;
+        var results_for_reducer =[];
         API.currentissuelist(payload).
         then((response)=>{
+
             console.log(response);
-        });
+            results_for_reducer = response.issue_raised_array_final;
+            console.log(results_for_reducer);
+            });
     }
 
     componentDidUpdate(){

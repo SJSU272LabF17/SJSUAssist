@@ -8,9 +8,14 @@ router.post('/currentissuelist', function (req, res, next) {
     //res.status(203).send({"message":"Session Expired. Please Login Again"});
 
     mongo.connect(mongoURL, function () {
+
         console.log('Connected to mongo at: ' + mongoURL);
         var coll = mongo.collection('users');
         console.log("inside the Open Issues");
+
+
+        var issue_raised_array =[];
+        var issue_raised_array_final =[];
 
         coll.aggregate([
             {$match: {'issues_raised.cat': "java"}},
@@ -33,7 +38,19 @@ router.post('/currentissuelist', function (req, res, next) {
             if (user) {
 
                 console.log(user);
-                res.status(200).send({"message":"Success"});
+
+                // Loop for getting all issue raised in temp array
+                for(var i=0; i<user.length;i++)
+                {
+                    //issue_raised_array.push(user[i].issues_raised);
+                    for(var j=0; j<user[i].issues_raised.length;j++)
+                    {
+                        issue_raised_array_final.push(user[i].issues_raised[j]);
+                    }
+                }
+
+                console.log(issue_raised_array_final);
+                res.status(200).send({issue_raised_array_final});
             }
             else {
                 res.status(400).send({"message":"Failed"});
