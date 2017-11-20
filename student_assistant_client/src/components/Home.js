@@ -5,6 +5,8 @@ import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import Activity from './Activity';
 import EditProfile from './EditProfile';
+import {connect} from 'react-redux';
+import {getIssue} from '../action/openissuelist';
 
 
 class User extends Component {
@@ -40,6 +42,10 @@ class User extends Component {
             console.log(response);
             results_for_reducer = response.issue_raised_array_final;
             console.log(results_for_reducer);
+
+            // Update the reducers
+            this.props.getIssue(results_for_reducer);
+
             });
     }
 
@@ -64,4 +70,13 @@ class User extends Component {
     }
 }
 
-export default withRouter(User);
+function mapDispatchToProps(dispatch) {
+    return {
+        getIssue : (data) => dispatch(getIssue(data)),
+
+    };
+}
+
+export default connect(null, mapDispatchToProps)(User);
+
+//export default User;
