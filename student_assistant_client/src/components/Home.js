@@ -60,16 +60,32 @@ class User extends Component {
         return true;
     }
 
+// <h2>Section title</h2>
+// <div class="table-responsive">
+//     <table class="table table-striped">
+//     <thead>
+//     <tr>
+//     <th>#</th>
+// <th>Header</th>
+// <th>Header</th>
+// <th>Header</th>
+// <th>Header</th>
+// </tr>
+// </thead>
+// <tbody>
+
     display()
     {
         return this.props.issues.map((issues,index) =>{
             return(
-                <div>
-                    <h4>
-                    {issues.issues.cat}
-                    {issues.issues.id}
-                    </h4>
-                </div>
+
+
+            <tr>
+                <td>{issues.issues.cat}</td>
+                <td>{issues.issues.id}</td>
+
+            </tr>
+
             )
         });
     }
@@ -79,10 +95,24 @@ class User extends Component {
         return (
 
             <div className="container-fluid">
-                <h1>
+                
+                <h2>
                     Open Issues
-                </h1>
-                {this.display()}
+                </h2>
+                <div class="table-responsive">
+                 <table class="table table-striped">
+                     <thead>
+                     <tr>
+                     <th>#</th>
+                     <th>Header</th>
+                     <th>Header</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     {this.display()}
+                     </tbody>
+                 </table>
+                </div>
             </div>
         );
     }
