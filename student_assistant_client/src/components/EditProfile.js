@@ -41,6 +41,7 @@ class EditProfile extends Component{
         return(
             <div className="container-fluid">
                 <div>
+
                     <form className="form-horizontal">
                         <div className="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-sm-1 col-md-1 col-lg-1">
                             <input type="button" id="btnoverviewedit" value="Cancel" className="btn btn-link"

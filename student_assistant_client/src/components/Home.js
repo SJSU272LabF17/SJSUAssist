@@ -95,7 +95,15 @@ class User extends Component {
         return (
 
             <div className="container-fluid">
-                
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1 class="display-3">Hello!</h1>
+                        <p>Welcome to the App</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                    </div>
+                </div>
+
+              
                 <h2>
                     Open Issues
                 </h2>
