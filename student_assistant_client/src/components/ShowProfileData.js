@@ -9,6 +9,7 @@ class ShowProfileData extends Component{
         };
     }
 
+/*
     showInterest = ((item) => {
         let interest="";
         if(item.reading){
@@ -22,8 +23,8 @@ class ShowProfileData extends Component{
         }
         return (interest);
     });
-
-    render(){
+*/
+render(){
 
         const {item} = this.props;
         console.log(item);
@@ -33,17 +34,17 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="form-group">
-                            <label className="text-justify h3">Profile</label><hr/>
+                            <label className="text-justify h3">User Profile:</label><hr/>
                         </div>
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Overview:</label>
+                            <label className="form-horizontal form-control-static">Firstname:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5 ">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtoverview"
-                                value={item.overview}
+                                value={item.firstname}
                             />
                         </div>
                     </div>
@@ -51,14 +52,14 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Work:</label>
+                            <label className="form-horizontal form-control-static">Lastname:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtwork"
-                                value={item.work}
+                                value={item.lastname}
                             />
                         </div>
                     </div>
@@ -66,14 +67,14 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Education:</label>
+                            <label className="form-horizontal form-control-static">Username:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txteducation"
-                                value={item.education}
+                                value={item.username}
                             />
                         </div>
                     </div>
@@ -81,14 +82,14 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Contact:</label>
+                            <label className="form-horizontal form-control-static">Gender:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtcontact"
-                                value={item.contactinfo}
+                                value={item.gender}
                             />
                         </div>
                     </div>
@@ -96,14 +97,14 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Life Events:</label>
+                            <label className="form-horizontal form-control-static">DOB:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtlifeevents"
-                                value={item.lifeevents}
+                                value={item.dob}
                             />
                         </div>
                     </div>
@@ -111,14 +112,14 @@ class ShowProfileData extends Component{
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Interests:</label>
+                            <label className="form-horizontal form-control-static">Skillset:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtlifeevents"
-                                value={this.showInterest(item)}
+                                value={item.skillset}
                             />
                         </div>
                     </div>
