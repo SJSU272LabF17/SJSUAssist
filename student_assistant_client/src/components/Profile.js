@@ -9,11 +9,11 @@ class Profile extends Component{
         super();
         this.state = {
             profiledata : {
-                overview: "",
-                work: "",
-                education: "",
-                contact: "",
-                lifeevent: ""
+                username: "",
+                firstname: "",
+                lastname: "",
+                gender: "",
+                skillset: ""
             },
             recprofiledata:[]
         };
