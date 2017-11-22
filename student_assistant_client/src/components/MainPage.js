@@ -7,6 +7,7 @@ import Message from './Message';
 import User from './User';
 import dropboxIcon from '../images/dropbox.png'
 import sjsu from '../images/sjsu.JPG'
+import Responsetoissues from './Responsetoissues'
 
 class MainPage extends Component {
 
@@ -200,6 +201,12 @@ class MainPage extends Component {
                                 handlePageChange={this.handlePageChange}
                                 doesSessionExist={this.doesSessionExist}
                             />
+                        </div>
+                    )}/>
+
+                    <Route path="/responsetoissues" render={() => (
+                        <div>
+                            <Responsetoissues/>
                         </div>
                     )}/>
                 </Switch>
