@@ -69,7 +69,35 @@
   z-index: 1;
 
 }
+.bg
+{
 
+background-image: url('./test.jpg');
+
+background-repeat:no-repeat;
+height: 80%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-size: cover;
+
+
+}
+
+#formb {
+
+  
+   
+    
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to right, black 0%,white 100%), url('./test.jpg');
+    background-blend-mode:lighten;
+    background-position: center;
+    
+
+}
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
