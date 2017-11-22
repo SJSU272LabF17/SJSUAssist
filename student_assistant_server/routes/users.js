@@ -112,13 +112,13 @@ router.post('/changeProfile', function (req, res, next) {
 });
 
 router.get('/getprofile', function (req, res, next) {
-    console.log("Here O m");
+    console.log("Inside get profile");
     try {
         console.log("In fetching profile");
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
             mongo.connect(mongoURL,function () {
-                let profile = mongo.collection("userprofile");
+                let profile = mongo.collection("users");
                 profile.find({_id:username}).toArray(function (err, results) {
                     console.log(results);
                     if (err) {
@@ -143,6 +143,7 @@ router.get('/getprofile', function (req, res, next) {
         res.status(301).send({"message" : "Error while fetching activity data"});
     }
 });
+
 
 router.get('/getskillsets', function (req, res, next) {
     console.log("Here O m");
