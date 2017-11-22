@@ -84,6 +84,65 @@ height: 80%;
 
 }
 
+#DateOfBirth:hover {
+    background-color: #98F5FF;
+}
+#inputPassword:hover{
+  background-color: #98F5FF;
+}
+#inputUsername:hover{
+  background-color: #98F5FF;
+}
+.panel-heading {
+
+ }
+#link {
+
+  font-size: 22px;
+  font-family: "Times New Roman", Times, serif;
+  font-color:black;
+  
+}
+
+.panel-body {
+
+ 
+}
+
+#inputlastname {
+
+  
+}
+#inputlastname:hover {
+
+background-color: #98F5FF;
+
+
+}
+#button {
+
+  
+}
+
+#inputfirstname{
+  
+}
+#inputfirstname:hover {
+background-color:#98F5FF;
+
+}
+.dropdown:hover{
+  background-color:#98F5FF;
+}
+#inputStudentID {
+
+
+
+}
+#inputStudentID:hover {
+
+  background-color:#98F5FF;
+}
 #formb {
 
   
@@ -92,7 +151,7 @@ height: 80%;
     background-size: cover;
     height: 100%;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to right, black 0%,white 100%), url('./test.jpg');
+    
     background-blend-mode:lighten;
     background-position: center;
     

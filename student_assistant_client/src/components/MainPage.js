@@ -6,7 +6,6 @@ import Login from './Login';
 import Message from './Message';
 import User from './User';
 import dropboxIcon from '../images/dropbox.png'
-import sjsu from '../images/sjsu.JPG'
 
 class MainPage extends Component {
 
@@ -159,7 +158,7 @@ class MainPage extends Component {
                                 <div className="col-lg-12 col-xs-12 col-md-12 col-sm-12">
                                     <div className="row">
                                         <div className= "col-lg-1 col-md-1 col-xs-1 col-sm-1" id="logo">
-                                            <img src={sjsu} width="100" height="100" alt="DropBox"/>
+                                        
                                         </div>
                                     </div>
                                     <div className="row">
