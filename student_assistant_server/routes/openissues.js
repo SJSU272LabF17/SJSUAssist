@@ -18,7 +18,7 @@ router.post('/currentissuelist', function (req, res, next) {
         var issue_raised_array_final =[];
 
         coll.aggregate([
-            {$match: {'issues_raised.cat': "java"}},
+            {$match: {'issues_raised.topic': "java"}},
             {
                 $project:
                     {
@@ -27,7 +27,7 @@ router.post('/currentissuelist', function (req, res, next) {
                                 {
                                     input: '$issues_raised',
                                     as: 'issues_raised',
-                                    cond: {$eq: ['$$issues_raised.cat', "java"]}
+                                    cond: {$eq: ['$$issues_raised.topic', "java"]}
                                 }
                         }
                     }

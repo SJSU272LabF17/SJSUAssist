@@ -74,6 +74,7 @@ class User extends Component {
 // </thead>
 // <tbody>
 
+
     display()
     {
         return this.props.issues.map((issues,index) =>{
@@ -81,8 +82,16 @@ class User extends Component {
 
 
             <tr>
-                <td>{issues.issues.cat}</td>
-                <td>{issues.issues.id}</td>
+                <td>{issues.issues._id}</td>
+                <td>{issues.issues.topic}</td>
+                <td>{issues.issues.issuecontent}</td>
+                <td>
+                    <button type="button"
+                            class="btn btn-primary btn-lg"
+                            onClick = {() => this.props.history.push("/responsetoissues")}
+
+                    >Response</button>
+                </td>
 
             </tr>
 
@@ -108,12 +117,12 @@ class User extends Component {
                     Open Issues
                 </h2>
                 <div class="table-responsive">
-                 <table class="table table-striped">
+                 <table class="table table-striped-jay">
                      <thead>
                      <tr>
                      <th>#</th>
-                     <th>Header</th>
-                     <th>Header</th>
+                     <th>Topic</th>
+                     <th>issuecontent</th>
                      </tr>
                      </thead>
                      <tbody>
@@ -145,6 +154,6 @@ function mapStateToProps(state) {
     return {issues};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(User));
 
 //export default User;
