@@ -65,7 +65,6 @@ router.post('/getActivityData', function (req, res, next) {
         res.status(301).send({"message" : "Error while fetching activity data"});
     }
 });
-
 router.post('/changeProfile', function (req, res, next) {
     try {
         if(req.session.username!==null || req.session.username!==undefined) {
@@ -75,19 +74,16 @@ router.post('/changeProfile', function (req, res, next) {
             console.log(data);
             updateQuery= {
                 $set : {
-                    overview : data.overview,
-                    education : data.education,
-                    contactinfo : data.contactinfo,
-                    lifeevents : data.lifeevent,
-                    work : data.work,
-                    music : data.music,
-                    reading : data.reading,
-                    sports : data.sports,
+                    username : data.username,
+                    firstname : data.firstname,
+                    lastname : data.lastname,
+                    gender : data.gender,
+                    skillset : data.skillset
                 }
             };
 
             mongo.connect(mongoURL, function () {
-                mongo.collection("userprofile").updateOne({_id:username},updateQuery, function (err, results) {
+                mongo.collection("users").updateOne({_id:username},updateQuery, function (err, results) {
                     console.log(results);
                     if (err) {
                         throw err;
