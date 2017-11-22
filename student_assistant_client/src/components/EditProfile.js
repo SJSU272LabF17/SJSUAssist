@@ -4,6 +4,7 @@ import * as API from '../api/API';
 
 class EditProfile extends Component{
 
+    /*
     constructor(){
         super();
         this.state = {
@@ -15,6 +16,18 @@ class EditProfile extends Component{
             music:false,
             reading:false,
             sports:false
+        };
+    }
+    */
+    constructor(){
+        super();
+        this.state = {
+            username: "",
+            firstname: "",
+            lastname: "",
+            gender: "",
+            skillset: "",
+            dob:""
         };
     }
 
@@ -33,11 +46,34 @@ class EditProfile extends Component{
             }
         });
     });
-
+/* will add later
     componentWillMount(){
+        API.getprofile().then((response)=>{
+            if(response.status===201){
+                response.json().then((data)=>{
+                    console.log(data);
+                    this.setState({
+                        ...this.state.recprofiledata,
+                        recprofiledata : data
+                    });
+                    this.props.handlePageChange("/user/editprofile");
+                });
+            }
+            else  if(response.status===203){
+                this.props.handlePageChange("/home/login");
+            }
+            else  if(response.status===301){
+                console.log("Error while fetching profile data")
+            }
+        });
     }
-
+*/
     render(){
+/* will add later
+        const username = this.setState.username = this.props.recprofiledata.username;
+        const lastname = this.setState.lastname = this.props.recprofiledata.lastname;
+        const firstname = this.setState.firstname = this.props.recprofiledata.firstname;
+*/
         return(
             <div className="container-fluid">
                 <div>
@@ -57,7 +93,7 @@ class EditProfile extends Component{
                                 </div>
 
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Overview:</label>
+                                    <label className="form-horizontal form-control-static">Username:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5 ">
                                     <input
@@ -68,7 +104,7 @@ class EditProfile extends Component{
                                         onChange={(event) => {
                                             this.setState({
                                                 ...this.state,
-                                                overview: event.target.value
+                                                username: event.target.value
                                             })
                                         }}
                                     />
@@ -78,7 +114,7 @@ class EditProfile extends Component{
                         <div className="form-group">
                             <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Work:</label>
+                                    <label className="form-horizontal form-control-static">Firstname:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5">
                                     <input
@@ -88,7 +124,7 @@ class EditProfile extends Component{
                                         onChange={(event) => {
                                             this.setState({
                                                 ...this.state,
-                                                work: event.target.value
+                                                firstname: event.target.value
                                             })
                                         }}
                                     />
@@ -98,7 +134,7 @@ class EditProfile extends Component{
                         <div className="form-group">
                             <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Education:</label>
+                                    <label className="form-horizontal form-control-static">Lastname:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5">
                                     <input
@@ -108,7 +144,7 @@ class EditProfile extends Component{
                                         onChange={(event) => {
                                             this.setState({
                                                 ...this.state,
-                                                education: event.target.value
+                                                lastname: event.target.value
                                             })
                                         }}
                                     />
@@ -118,7 +154,7 @@ class EditProfile extends Component{
                         <div className="form-group">
                             <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Contact:</label>
+                                    <label className="form-horizontal form-control-static">Gender:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5">
                                     <input
@@ -128,7 +164,7 @@ class EditProfile extends Component{
                                         onChange={(event) => {
                                             this.setState({
                                                 ...this.state,
-                                                contactinfo: event.target.value
+                                                gender: event.target.value
                                             })
                                         }}
                                     />
@@ -138,7 +174,7 @@ class EditProfile extends Component{
                         <div className="form-group">
                             <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Life Events:</label>
+                                    <label className="form-horizontal form-control-static">DOB:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5">
                                     <input
@@ -155,56 +191,28 @@ class EditProfile extends Component{
                                 </div>
                             </div>
                         </div>
+
                         <div className="form-group">
                             <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <label className="form-horizontal form-control-static">Interests:</label>
+                                    <label className="form-horizontal form-control-static">Skillset:</label>
                                 </div>
                                 <div className="col-sm-5 col-md-5 col-lg-5">
-                                    <div className="row checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="cbmusic"
-                                            value="Music"
-                                            onChange={(event) => {
-                                                this.setState({
-                                                    ...this.state,
-                                                    music: event.target.checked
-                                                })
-                                            }}
-                                        />Music
-                                    </div>
-
-                                    <div className="row checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="cbreading"
-                                            value="Music"
-                                            onChange={(event) => {
-                                                this.setState({
-                                                    ...this.state,
-                                                    reading: event.target.checked
-                                                })
-                                            }}
-                                        />Reading
-                                    </div>
-
-                                    <div className="row checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="cbsports"
-                                            value="Music"
-                                            onChange={(event) => {
-                                                this.setState({
-                                                    ...this.state,
-                                                    sports: event.target.checked
-                                                })
-                                            }}
-                                        />Sports
-                                    </div>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="txtlifeevents"
+                                        onChange={(event) => {
+                                            this.setState({
+                                                ...this.state,
+                                                lifeevent: event.target.value
+                                            })
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </div>
+
                         <div className="form-group">
                             <input type="button" className="btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
                         </div>
