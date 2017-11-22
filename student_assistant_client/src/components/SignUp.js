@@ -10,7 +10,10 @@ class SignUp extends Component{
             firstname: "",
             lastname: "",
             username: "",
-            password: ""
+            password: "",
+            StudentID:"",
+            DateOfBirth:"",
+            Gender:"Male"
         };
     }
 
@@ -29,7 +32,7 @@ class SignUp extends Component{
                                     {/*<input type="button" onClick={()=>this.props.handlePageChange("/login")}*/}
                                            {/*className="btn-link" value="Login"/>*/}
                                     {/*<Link to={'/prelogin/login'} component={Login}>Login</Link>*/}
-                                    <Link to={'/home/login'} component={Login}>Login</Link>
+                                    <Link to={'/home/login'} id="link" component={Login}>Student SignUp</Link> 
                                 </div>
                             
                                 <form className="form-horizontal" id="formb">
@@ -110,14 +113,14 @@ class SignUp extends Component{
                                             <input
                                                 type="email"
                                                 className="form-control"
-                                                name="inputUsername"
-                                                id="inputUsername"
+                                                name="inputStudentID"
+                                                id="inputStudentID"
                                                 placeholder="StudentID"
                                                 required
                                                 onChange={(event) => {
                                                     this.setState({
                                                             ...this.state,
-                                                            username: event.target.value
+                                                            StudentID: event.target.value
                                                     })
                                                 }}
                                             />
@@ -127,20 +130,31 @@ class SignUp extends Component{
                                        <div className="form-group">
                                         <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                             <input
-                                                type="email"
+                                                type="date"
 
                                                 className="form-control"
-                                                name="inputUsername"
-                                                id="inputUsername"
+                                                name="DateOfBirth"
+                                                id="DateOfBirth"
                                                 placeholder="DateOfBirth"
                                                 required
                                                 onChange={(event) => {
                                                     this.setState({
                                                             ...this.state,
-                                                            username: event.target.value
+                                                            DateOfBirth: event.target.value
                                                     })
                                                 }}
                                             />
+                                        </div>
+                                    </div>
+                                   <div className="form-group">
+                                        <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                            <select className="dropdown">
+                                            <option>Select Gender</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            </select>
+                                            
+                                            
                                         </div>
                                     </div>
                                    
@@ -162,7 +176,7 @@ class SignUp extends Component{
 
                                     <div className="form-group">
                                         <div className="col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
-                                            <input type="button" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
+                                            <input type="button" id="button" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
                                                    onClick={()=>this.props.handleSignUp(this.state)} value="Sign Up"/>
                                         </div>
                                     </div>
