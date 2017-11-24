@@ -12,6 +12,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var signup = require('./routes/signup');
 var openissues = require('./routes/openissues');
+var resolveissue = require('./routes/resolveissue');
 
 var mongoSessionURL = "mongodb://localhost:27017/student_assistant";
 var expressSessions = require("express-session");
@@ -56,6 +57,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/signup', signup);
 app.use('/openissues', openissues);
+app.use('/resolveissue', resolveissue);
+
 
 app.post('/login/doLogout', function(req,res) {
     console.log(req.session.user);

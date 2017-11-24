@@ -19,6 +19,21 @@ class Responsetoissues extends Component{
                 <br/>
                 {this.props.resolveissue.issues.isopen}
             </h2>
+            <button type="button"
+                    class="btn btn-primary btn-lg"
+                    onClick = {() => {
+                        API.resolveissue(this.props.resolveissue.issues).
+                        then((response)=>{
+
+                            console.log(response);
+
+                        });
+                        //
+                        //this.props.history.push("/responsetoissues")
+                    }
+                    }
+
+            >Resolve!</button>
         </div>
         );
     }
