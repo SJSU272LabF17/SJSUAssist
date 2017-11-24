@@ -7,6 +7,7 @@ import Activity from './Activity';
 import EditProfile from './EditProfile';
 import {connect} from 'react-redux';
 import {getIssue} from '../action/openissuelist';
+import {resolveIssue} from '../action/Resolveissue'
 
 
 class User extends Component {
@@ -88,7 +89,11 @@ class User extends Component {
                 <td>
                     <button type="button"
                             class="btn btn-primary btn-lg"
-                            onClick = {() => this.props.history.push("/responsetoissues")}
+                            onClick = {() => {
+                                this.props.resolveIssue(issues)
+                                this.props.history.push("/responsetoissues")
+                            }
+                            }
 
                     >Response</button>
                 </td>
@@ -138,6 +143,8 @@ class User extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         getIssue : (data) => dispatch(getIssue(data)),
+        resolveIssue: (data) => dispatch(resolveIssue(data))
+
 
     };
 }
