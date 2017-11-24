@@ -7,6 +7,13 @@ import Activity from './Activity';
 import EditProfile from './EditProfile';
 import Home from './Home';
 import Issues from './Issues';
+import home from '../images/homeee.svg'
+import id from '../images/user2.svg'
+import disc from '../images/id-card.svg'
+import activity from '../images/notebook.svg'
+import logout from '../images/logout.svg'
+
+
 
 class User extends Component {
 
@@ -68,29 +75,36 @@ class User extends Component {
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                         <div className="row" height="50">
-                            <div align="left">
-                                <div>
-                                    {/*<button className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/home")})}>*/}
-                                    <img src={dropboxLogo} width="50" height="50" alt="DropBox" align="left"/>
-                                    {/*</button>*/}
-                                </div>
-                            </div>
+
                             <div align="right">
-                                <div className="dropdown">
-                                    <button onClick={(()=> {document.getElementById("userDropdown").classList.toggle("show");})}
-                                            className="dropbtn" >
-                                        {this.props.username}
-                                    </button>
-                                    <div id="userDropdown" className="dropdown-content">
-                                        <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/profile")})}>Profile</a>
-                                        <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/activity")})}>
-                                            Activity
-                                        </a>
-                                        <a className="btn btn-link" onClick={(()=>{this.props.handleLogout()})}>
-                                            Logout
-                                        </a>
-                                    </div>
-                                </div>
+                                {/*<div className="dropdown">*/}
+                                    {/*<button onClick={(()=> {document.getElementById("userDropdown").classList.toggle("show");})}*/}
+                                            {/*className="dropbtn" >*/}
+                                        {/*{this.props.username}*/}
+                                    {/*</button>*/}
+                                    {/*<div id="userDropdown" className="dropdown-content">*/}
+                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/profile")})}>Profile</a>*/}
+                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/activity")})}>*/}
+                                            {/*Activity*/}
+                                        {/*</a>*/}
+                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handleLogout()})}>*/}
+                                            {/*Logout*/}
+                                        {/*</a>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
+
+                                <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/profile")})}>
+                                    <img src={id} width="50" height="60" alt="Home" align="left"/>
+                                </a>
+
+                                <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/activity")})}>
+                                    <img src={activity} width="50" height="37" alt="Home" align="left"/>
+                                </a>
+
+                                <a className="btn btn-link" onClick={(()=>{this.props.handleLogout()})}>
+                                    <img src={logout} width="50" height="37" alt="Home" align="left"/>
+                                </a>
+
                             </div>
                         </div>
                         <br/>
@@ -111,10 +125,14 @@ class User extends Component {
                                 <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                                     <ul class="nav nav-pills flex-column">
                                         <li class="nav-item">
-                                            <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/home")})}>Home</button>
+                                            <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/home")})}>
+                                                <img src={home} width="50" height="50" alt="Home" align="left"/>
+                                            </button>
                                         </li>
                                         <li class="nav-item">
-                                            <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/issues")})}>Issues</button>
+                                            <button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/issues")})}>
+                                                <img src={disc} width="50" height="50" alt="Issues" align="left"/>
+                                                </button>
                                         </li>
                                     </ul>
                                 </nav>

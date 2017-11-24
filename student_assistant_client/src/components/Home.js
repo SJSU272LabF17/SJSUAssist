@@ -8,6 +8,8 @@ import EditProfile from './EditProfile';
 import {connect} from 'react-redux';
 import {getIssue} from '../action/openissuelist';
 import {resolveIssue} from '../action/Resolveissue'
+import like from '../images/like.svg'
+
 
 
 class User extends Component {
@@ -88,14 +90,13 @@ class User extends Component {
                 <td>{issues.issues.issuecontent}</td>
                 <td>
                     <button type="button"
-                            class="btn btn-primary btn-lg"
                             onClick = {() => {
                                 this.props.resolveIssue(issues)
                                 this.props.history.push("/responsetoissues")
                             }
                             }
 
-                    >Response</button>
+                    ><img src={like} width="30" height="30" alt="Response" align="left"/></button>
                 </td>
 
             </tr>
