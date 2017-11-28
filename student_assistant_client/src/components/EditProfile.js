@@ -46,7 +46,7 @@ class EditProfile extends Component{
             }
         });
     });
-/* will add later
+/* will add later */
     componentWillMount(){
         API.getprofile().then((response)=>{
             if(response.status===201){
@@ -67,7 +67,7 @@ class EditProfile extends Component{
             }
         });
     }
-*/
+
     render(){
 /* will add later*/
         const username = this.setState.username = this.props.recprofiledata.username;
