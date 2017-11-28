@@ -69,11 +69,11 @@ class EditProfile extends Component{
     }
 */
     render(){
-/* will add later
+/* will add later*/
         const username = this.setState.username = this.props.recprofiledata.username;
         const lastname = this.setState.lastname = this.props.recprofiledata.lastname;
         const firstname = this.setState.firstname = this.props.recprofiledata.firstname;
-*/
+
         return(
             <div className="container-fluid">
                 <div>
