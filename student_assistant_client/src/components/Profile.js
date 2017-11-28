@@ -57,7 +57,7 @@ class Profile extends Component{
                                         />)
                                     })
                                 }
-                                <div className="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-sm-1 col-md-1 col-lg-1">
+                                <div className="col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-sm-1 col-md-1 col-lg-1">
                                     <input type="button" id="btnoverviewedit" value="Edit" className="btn btn-primary"
                                            onClick={(()=>{
                                                this.props.history.push("/user/editprofile");
