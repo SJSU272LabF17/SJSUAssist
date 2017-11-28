@@ -47,13 +47,7 @@ class Profile extends Component{
                 <Switch>
                     <Route path="/user/profile" render={() => (
                         <div>
-                            <div className="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-sm-1 col-md-1 col-lg-1">
-                                <input type="button" id="btnoverviewedit" value="Edit" className="btn btn-link"
-                                       onClick={(()=>{
-                                           this.props.history.push("/user/editprofile");
-                                       })}
-                                />
-                            </div>
+
                             <div>
                                 {
                                     this.state.recprofiledata.map((item, index)=>{
@@ -63,6 +57,13 @@ class Profile extends Component{
                                         />)
                                     })
                                 }
+                                <div className="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-sm-1 col-md-1 col-lg-1">
+                                    <input type="button" id="btnoverviewedit" value="Edit" className="btn btn-link"
+                                           onClick={(()=>{
+                                               this.props.history.push("/user/editprofile");
+                                           })}
+                                    />
+                                </div>
                             </div>
                         </div>
                     )}/>
