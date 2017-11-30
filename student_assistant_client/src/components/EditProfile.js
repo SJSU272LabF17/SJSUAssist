@@ -48,32 +48,9 @@ class EditProfile extends Component{
     });
 /* will add later */
     componentWillMount(){
-        API.getprofile().then((response)=>{
-            if(response.status===201){
-                response.json().then((data)=>{
-                    console.log(data);
-                    this.setState({
-                        ...this.state.recprofiledata,
-                        recprofiledata : data
-                    });
-                    this.props.handlePageChange("/user/editprofile");
-                });
-            }
-            else  if(response.status===203){
-                this.props.handlePageChange("/home/login");
-            }
-            else  if(response.status===301){
-                console.log("Error while fetching profile data")
-            }
-        });
     }
 
     render(){
-/* will add later*/
-        const username = this.setState.username = this.props.recprofiledata.username;
-        const lastname = this.setState.lastname = this.props.recprofiledata.lastname;
-        const firstname = this.setState.firstname = this.props.recprofiledata.firstname;
-
         return(
             <div className="container-fluid">
                 <div>
