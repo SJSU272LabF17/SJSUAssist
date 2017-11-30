@@ -84,20 +84,12 @@ render(){
                         <div className="col-sm-3 col-md-3 col-lg-3">
                             <label className="form-horizontal form-control-static">Gender:</label>
                         </div>
-                        <div className="col-sm-5 col-md-5 col-lg-5">
+                        <div className="col-sm-8 col-md-8 col-lg-8">
                             <select className="dropdown" value={item.gender}>
                                 <option>Select Gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
-                            /*
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="txtcontact"
-                                value={item.gender}
-                            />
-                            */
                         </div>
                     </div>
                 </div>
