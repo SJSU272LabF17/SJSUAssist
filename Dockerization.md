@@ -4,13 +4,13 @@
 
 1.Create a Docker file for Server and put it in Server Folder location
 
-FROM node:latest
-WORKDIR /app
-COPY package.json /app
-RUN npm install
-COPY . /app
-CMD npm start
-EXPOSE 3001
+	FROM node:latest
+	WORKDIR /app
+	COPY package.json /app
+	RUN npm install
+	COPY . /app
+	CMD npm start
+	EXPOSE 3001
 
 2.Go to the Server location and build an image with any name
 
@@ -27,3 +27,22 @@ EXPOSE 3001
 5.Run the container with above built image and also link with mongodb container using below command
 
 	docker run --name nodeserver --link mongodb:mongodb -p 3001:3001 nodeserver
+
+6.Create a Docker file for Client and put it in Client Folder location
+
+	FROM node:latest
+	WORKDIR /app
+	COPY package.json /app
+	RUN npm install
+	COPY . /app
+	CMD npm start
+	EXPOSE 3000
+
+7.Go to the Server location and build an image with any name
+
+	docker build -t reactapp
+
+
+8.Run the container with above built image and also link with nodeserver container using below command
+
+	docker run --name reactapp --link nodeserver:nodeserver -p 3000:3000 reactapp
