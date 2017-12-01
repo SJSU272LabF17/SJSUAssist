@@ -1,6 +1,6 @@
 **Dockerizing Client and Server**:
 
-###Dockerizing Locally:
+**Dockerizing Locally:**
 
 1.Create a Docker file for Server and put it in Server Folder location
 
@@ -46,3 +46,33 @@
 8.Run the container with above built image and also link with nodeserver container using below command
 
 	docker run --name reactapp --link nodeserver:nodeserver -p 3000:3000 reactapp
+
+**Pushing images to Dockerhub:**
+
+9.Create an account for Docker Hub.
+
+10.Login with docker hub credentials in Docker terminal
+
+	Docker Login
+
+11.Now create Sever image with your docker username
+
+	docker build -t username/nodeserver
+
+12.Push to image docker hub
+
+	docker push username/nodeserver
+
+13.Now create Client image with your docker username
+
+	docker build -t username/reactapp
+
+12.Push to image docker hub
+
+	docker push username/reactapp
+
+13.Done! Now we can pull our images from any computer with below pull commands
+
+	docker pull username/nodeserver
+
+	docker pull username/reactapp
