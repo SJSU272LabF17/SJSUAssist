@@ -8,7 +8,7 @@ class Comments extends Component{
 
     state ={
         comments:[]
-    }
+    };
 
     componentWillMount(){
         API.comments(this.props.resolveissue.issues)
@@ -16,11 +16,26 @@ class Comments extends Component{
 
             console.log(response);
             this.setState({
-                comments:response
+                comments:response.response
             });
 
         });
 
+    }
+
+    display()
+    {
+        var array=this.state.comments;
+        console.log(array);
+        return array.map((comments,index) =>{
+
+                return (
+                    <div>
+                        {comments.content}
+                    </div>
+                )
+
+        })
     }
 
     render()
@@ -29,24 +44,10 @@ class Comments extends Component{
             <div>
                 <h2 class="table table-striped-jay">
                     {this.props.resolveissue.issues._id}
-                    {this.props.resolveissue.issues.issuecontent}
                     Comments
+                    {this.display()}
                 </h2>
-                <button type="button"
-                        class="btn btn-primary btn-lg"
-                        onClick = {() => {
-                            API.resolveissue(this.props.resolveissue.issues).
-                            then((response)=>{
 
-                                console.log(response);
-
-                            });
-                            //
-                            this.props.history.push("/")
-                        }
-                        }
-
-                >Resolve!</button>
             </div>
         );
     }
