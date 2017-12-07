@@ -60,6 +60,7 @@ app.use('/openissues', openissues);
 app.use('/resolveissue', resolveissue);
 
 
+
 app.post('/login/doLogout', function(req,res) {
     console.log(req.session.user);
     req.session.destroy();

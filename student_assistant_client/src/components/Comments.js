@@ -6,6 +6,23 @@ import {connect} from 'react-redux';
 
 class Comments extends Component{
 
+    state ={
+        comments:[]
+    }
+
+    componentWillMount(){
+        API.comments(this.props.resolveissue.issues)
+        .then((response)=>{
+
+            console.log(response);
+            this.setState({
+                comments:response
+            });
+
+        });
+
+    }
+
     render()
     {
         return(

@@ -59,4 +59,45 @@ router.post('/resolveissue', function (req, res, next) {
 
 });
 
+router.post('/comments', function (req, res, next) {
+
+    console.log("inside Comments");
+    console.log("req.body._id:"+req.body._id);
+
+
+    mongo.connect(mongoURL, function () {
+
+        var response;
+        console.log('Connected to mongo at: ' + mongoURL);
+        var coll = mongo.collection('Comments');
+        console.log("inside the Comments - mongo");
+
+        coll.findOne({'id': req.body._id},
+
+            function (err, user) {
+                console.log("inside call back-- Comments " + user.id);
+                console.log("inside call back-- Comments " + user);
+                if (user) {
+
+                    console.log("user.comments"+user.comments);
+                    response =user.comments;
+                    res.status(200).send({response});
+
+
+
+                }
+                else {
+                    res.status(400).send({message:"Fail "});
+
+
+                }
+            });
+
+
+
+    });
+
+
+});
+
 module.exports = router;

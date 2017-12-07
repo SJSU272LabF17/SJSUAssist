@@ -341,6 +341,23 @@ export const resolveissue = (payload) =>
         console.log("Error: " + error);
         return error;
     });
+
+export const comments = (payload) =>
+    fetch (`${api}/resolveissue/comments`,
+        {
+            method: 'POST',
+            headers: {
+                ...headers,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        }).then(res => {
+        return res.json();
+    }).catch(error => {
+        console.log("Error: " + error);
+        return error;
+    });
 // export const fetchSelectedDataSharedWithUser = (payload) =>
 //     fetch (`${api}/users/accessSelectedSharedData`,
 //         {
