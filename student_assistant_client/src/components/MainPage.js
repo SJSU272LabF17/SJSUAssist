@@ -8,6 +8,7 @@ import User from './User';
 import dropboxIcon from '../images/dropbox.png'
 
 import Responsetoissues from './Responsetoissues'
+import Comments from './Comments'
 
 class MainPage extends Component {
 
@@ -207,6 +208,12 @@ class MainPage extends Component {
                     <Route path="/responsetoissues" render={() => (
                         <div>
                             <Responsetoissues/>
+                        </div>
+                    )}/>
+
+                    <Route path="/comments" render={() => (
+                        <div>
+                            <Comments/>
                         </div>
                     )}/>
                 </Switch>
