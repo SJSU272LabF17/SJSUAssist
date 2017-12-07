@@ -17,7 +17,7 @@ router.post('/resolveissue', function (req, res, next) {
 
         coll.update({'issues_raised._id': req.body._id},
             {$push:
-                {issue_resolved: {
+                {issues_resolved: {
                     "_id":req.body._id,
                     "topic":req.body.topic,
                     "issuecontent" : req.body.issuecontent,
@@ -25,7 +25,7 @@ router.post('/resolveissue', function (req, res, next) {
 
                 }}},
                 function (err, user) {
-                        console.log("inside call back" + user)
+                        console.log("inside call back" + user);
                         if (user) {
 
                             coll.update({'issues_raised._id': req.body._id},
