@@ -29,7 +29,7 @@ class Responsetoissues extends Component{
 
                         });
                         //
-                        //this.props.history.push("/responsetoissues")
+                        this.props.history.push("/")
                     }
                     }
 

@@ -17,45 +17,56 @@ router.post('/currentissuelist', function (req, res, next) {
         var issue_raised_array =[];
         var issue_raised_array_final =[];
 
-        coll.aggregate([
-            {$match: {'issues_raised.topic': "java"}},
-            {
-                $project:
-                    {
-                        issues_raised: {
-                            $filter:
-                                {
-                                    input: '$issues_raised',
-                                    as: 'issues_raised',
-                                    cond: {$eq: ['$$issues_raised.topic', "java"]}
-                                }
-                        }
-                    }
-            }
+        console.log("req.session.username"+req.session.username)
 
-        ], function (err, user) {
-            console.log("inside call back of Open Issues" + user);
-            if (user) {
+        coll.findOne({"_id":req.session.username},function (err, user) {
 
-                console.log(user);
+            console.log("user.skillset:"+user.skillset);
+            console.log("user:"+user);
 
-                // Loop for getting all issue raised in temp array
-                for(var i=0; i<user.length;i++)
+            coll.aggregate([
+                {$match: {'issues_raised.topic': user.skillset}},
                 {
-                    //issue_raised_array.push(user[i].issues_raised);
-                    for(var j=0; j<user[i].issues_raised.length;j++)
-                    {
-                        issue_raised_array_final.push(user[i].issues_raised[j]);
-                    }
+                    $project:
+                        {
+                            issues_raised: {
+                                $filter:
+                                    {
+                                        input: '$issues_raised',
+                                        as: 'issues_raised',
+                                        cond: {$eq: ['$$issues_raised.topic', user.skillset]}
+                                    }
+                            }
+                        }
                 }
 
-                console.log(issue_raised_array_final);
-                res.status(200).send({issue_raised_array_final});
-            }
-            else {
-                res.status(400).send({"message":"Failed"});
-            }
+            ], function (err, user) {
+                console.log("inside call back of Open Issues" + user);
+                if (user) {
+
+                    console.log(user);
+
+                    // Loop for getting all issue raised in temp array
+                    for(var i=0; i<user.length;i++)
+                    {
+                        //issue_raised_array.push(user[i].issues_raised);
+                        for(var j=0; j<user[i].issues_raised.length;j++)
+                        {
+                            issue_raised_array_final.push(user[i].issues_raised[j]);
+                        }
+                    }
+
+                    console.log(issue_raised_array_final);
+                    res.status(200).send({issue_raised_array_final});
+                }
+                else {
+                    res.status(400).send({"message":"Failed"});
+                }
+            });
+
         });
+
+
     });
 });
 
