@@ -8,8 +8,9 @@ import EditProfile from './EditProfile';
 import {connect} from 'react-redux';
 import {getIssue} from '../action/openissuelist';
 import {resolveIssue} from '../action/Resolveissue'
+import {comment} from '../action/Comment'
 import like from '../images/like.svg'
-
+import chat from '../images/chat.svg'
 
 
 class User extends Component {
@@ -91,12 +92,21 @@ class User extends Component {
                 <td>
                     <button type="button"
                             onClick = {() => {
-                                this.props.resolveIssue(issues)
+                                this.props.resolveIssue(issues);
                                 this.props.history.push("/responsetoissues")
                             }
                             }
 
                     ><img src={like} width="30" height="30" alt="Response" align="left"/></button>
+
+                    <button type="button"
+                            onClick = {() => {
+                                this.props.comment(issues);
+                                this.props.history.push("/comments")
+                            }
+                            }
+
+                    > <img src={chat} width="50" height="30" alt="Home" align="right"/></button>
                 </td>
 
             </tr>
@@ -112,16 +122,18 @@ class User extends Component {
             <div className="container-fluid">
                 <div class="jumbotron">
                     <div class="container">
-                        <h1 class="display-3">Hello!</h1>
-                        <p>Welcome to the App</p>
-                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                        <h2 class="display-3">Hello!</h2>
+                        <p>Welcome to the Student Assistance Portal</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Profile</a></p>
                     </div>
                 </div>
 
               
-                <h2>
+                <h2 class="table table-striped-jay">
                     Open Issues
                 </h2>
+                <br/>
+                <br/>
                 <div class="table-responsive">
                  <table class="table table-striped-jay">
                      <thead>
@@ -144,7 +156,8 @@ class User extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         getIssue : (data) => dispatch(getIssue(data)),
-        resolveIssue: (data) => dispatch(resolveIssue(data))
+        resolveIssue: (data) => dispatch(resolveIssue(data)),
+        comment: (data) => dispatch(comment(data))
 
 
     };

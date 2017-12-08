@@ -5,7 +5,6 @@ import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import ShowClosedIssues from './ShowClosedIssues';
 import ShowOpenIssues from './ShowOpenIssues';
-import ShowSkillsInDropDown from './ShowSkillsInDropdown';
 import {
     Row,
     Col,
@@ -232,7 +231,6 @@ class Issues extends Component {
                         <div className="row">
                             <h4 > My Open Issues </h4>
                             <hr/>
-                            {console.log(this.props)}
                             {
                                 this.props.state.userIssues.openIssues.map((issue)=>{
                                     return(

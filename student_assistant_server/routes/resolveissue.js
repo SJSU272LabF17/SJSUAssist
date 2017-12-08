@@ -59,4 +59,101 @@ router.post('/resolveissue', function (req, res, next) {
 
 });
 
+router.post('/comments', function (req, res, next) {
+
+    console.log("inside Comments");
+    console.log("req.body._id:"+req.body._id);
+
+
+    mongo.connect(mongoURL, function () {
+
+        var response;
+        console.log('Connected to mongo at: ' + mongoURL);
+        var coll = mongo.collection('Comments');
+        console.log("inside the Comments - mongo");
+
+        coll.aggregate([
+                {$match: {'comments.id':parseInt(req.body._id)}},
+                {$project:
+                    {comments:{$filter:
+                        {
+                            input:'$comments',
+                            as:'comments',
+                            cond:{$eq:['$$comments.id',parseInt(req.body._id)]}
+                        }}
+                    }}
+            ],
+
+            function (err, user) {
+                console.log("inside call back-- Comments " + user.id);
+                console.log("inside call back-- Comments " + user);
+                if (user) {
+
+                    console.log("user.comments"+user);
+                    console.log("user.length"+user.length);
+                    response =user;
+                    res.status(200).send({response});
+
+
+
+                }
+                else {
+                    res.status(400).send({message:"Fail "});
+
+
+                }
+            });
+
+
+
+    });
+
+
+});
+
+router.post('/addcomments', function (req, res, next) {
+
+    console.log("inside Comments");
+    console.log("req.body.newcomment:"+req.body.newcomment);
+    console.log("req.body.id:"+req.body.id);
+
+
+    mongo.connect(mongoURL, function () {
+
+        var response;
+        console.log('Connected to mongo at: ' + mongoURL);
+        var coll = mongo.collection('Comments');
+        console.log("inside the add Comments - mongo");
+
+        coll.update({id: parseInt(req.body.id)}, {
+                $push: {
+                    comments: {
+                        id: parseInt(req.body.id),
+                        content:req.body.newcomment
+                    }
+                }
+            },
+
+            function (err, user) {
+                if (user) {
+
+                    res.status(200).send({message:"Success "});
+
+
+
+                }
+                else {
+                    res.status(400).send({message:"Fail "});
+
+
+                }
+            });
+
+
+
+    });
+
+
+});
+
 module.exports = router;

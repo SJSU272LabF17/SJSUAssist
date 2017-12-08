@@ -4,6 +4,7 @@ import Openissues from './openissues-reducer';
 import Resolveissue from './resolveisseues - reducer'
 import skillset from './setskills_reducer';
 import handleUserIssues from './userissues_reducer';
+import Comment from './comment-reducer'
 
 const allReducers = combineReducers({
 
@@ -11,7 +12,8 @@ const allReducers = combineReducers({
     openissues : Openissues,
     resolveissue : Resolveissue,
     skillset : skillset,
-    userIssues : handleUserIssues
+    userIssues : handleUserIssues,
+    comment:Comment
 });
 
 export default allReducers;

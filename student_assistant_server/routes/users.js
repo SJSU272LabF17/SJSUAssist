@@ -186,6 +186,7 @@ router.post('/addissue', function (req, res, next) {
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
             let data = req.body;
+            console.log("data:"+JSON.stringify(data));
             mongo.connect(mongoURL, function () {
 
                 let users = mongo.collection("users");
