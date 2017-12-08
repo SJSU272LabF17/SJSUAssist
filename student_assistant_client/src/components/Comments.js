@@ -3,12 +3,14 @@ import * as API from '../api/API';
 import {Route,withRouter,Switch} from 'react-router-dom';
 import ShowProfileData from './ShowProfileData';
 import {connect} from 'react-redux';
+import chat from '../images/chat.svg'
 
 
 class Comments extends Component{
 
     state ={
-        comments:[]
+        comments:[],
+        newcomment:''
     };
 
     componentWillMount(){
@@ -79,7 +81,40 @@ class Comments extends Component{
                 {this.display()}
                 </h4>
             </div>
-                <textarea class="span6" rows="3" placeholder="What's up?" required></textarea>
+                <div class="form-group">
+
+                    <div className="col-lg-3 col-md-3">
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                    <textarea class="form-control"
+                              id="exampleFormControlTextarea1"
+                              placeholder="Add a comment"
+                              rows="3"
+                              value={this.state.newcomment}
+                              onChange={(event) => {
+                                  this.setState({
+                                      newcomment: event.target.value
+                                  });
+                              }}
+                    >
+
+                    </textarea>
+                        <br/>
+                        <div align="right">
+                        <button type="button"
+                                align="right"
+                                onClick = {() => {
+                                }
+                                }
+
+                        > <img src={chat} width="50" height="30" alt="Home" align="right"/></button>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-3 col-md-3">
+                    </div>
+                </div>
 
 
             </div>

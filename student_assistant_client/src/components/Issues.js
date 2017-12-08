@@ -5,7 +5,7 @@ import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import ShowClosedIssues from './ShowClosedIssues';
 import ShowOpenIssues from './ShowOpenIssues';
-import ShowSkillsInDropDown from './ShowSkillsInDropdown';
+
 class Issues extends Component {
 
     constructor(){
@@ -19,7 +19,7 @@ class Issues extends Component {
     }
 
     issueData = {
-        skillId:"",
+        skillname:"",
         issueContent:""
     };
 
@@ -131,11 +131,9 @@ class Issues extends Component {
                         {
                             this.state.skills.map((item)=>{
                                 return(
-                                    <ShowSkillsInDropDown
-                                        key={item._id}
-                                        item={item}
-                                        // skillsSelectedToRaiseIssue = {this.skillsSelectedToRaiseIssue}
-                                    />
+                                    <option value={item.skillname}>
+                                        {item.skillname}
+                                    </option>
 
                                 );
                             })
