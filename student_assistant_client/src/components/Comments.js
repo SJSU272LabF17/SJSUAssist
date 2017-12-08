@@ -105,6 +105,17 @@ class Comments extends Component{
                         <button type="button"
                                 align="right"
                                 onClick = {() => {
+                                    var payload={};
+                                    payload.id=this.props.resolveissue.issues._id;
+                                    payload.newcomment=this.state.newcomment;
+                                    API.addcomments(payload)
+                                        .then((response)=>{
+                                            console.log(response);
+                                            this.setState({
+                                                newcomment: ''
+                                            });
+
+                                        });
                                 }
                                 }
 
