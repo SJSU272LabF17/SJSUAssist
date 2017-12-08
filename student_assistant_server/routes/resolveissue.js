@@ -72,15 +72,26 @@ router.post('/comments', function (req, res, next) {
         var coll = mongo.collection('Comments');
         console.log("inside the Comments - mongo");
 
-        coll.findOne({'id': req.body._id},
+        coll.aggregate([
+                {$match: {'comments.id':1}},
+                {$project:
+                    {comments:{$filter:
+                        {
+                            input:'$comments',
+                            as:'comments',
+                            cond:{$eq:['$$comments.id',1]}
+                        }}
+                    }}
+            ],
 
             function (err, user) {
                 console.log("inside call back-- Comments " + user.id);
                 console.log("inside call back-- Comments " + user);
                 if (user) {
 
-                    console.log("user.comments"+user.comments);
-                    response =user.comments;
+                    console.log("user.comments"+user);
+                    console.log("user.length"+user.length);
+                    response =user;
                     res.status(200).send({response});
 
 
