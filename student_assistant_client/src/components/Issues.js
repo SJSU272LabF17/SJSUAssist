@@ -6,20 +6,55 @@ import Profile from './Profile';
 import ShowClosedIssues from './ShowClosedIssues';
 import ShowOpenIssues from './ShowOpenIssues';
 import ShowSkillsInDropDown from './ShowSkillsInDropdown';
+import {
+    Row,
+    Col,
+    Card,
+    CardHeader,
+    CardBody,
+    Table,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
+    FormGroup,
+    FormText,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupButton,
+    Dropdown
+} from 'reactstrap';
+import {connect} from 'react-redux';
+import {setOpenIssues, setResolvedIssues} from '../action/userissues';
+import {setSkills} from '../action/setskills';
+
 class Issues extends Component {
 
     constructor(){
         super();
         this.state = {
-            showRaiseIssueTab:false,
+            modal:false,
             skills:{},
             openIssues:[],
             closedIssues:[]
         };
     }
 
+    toggle = (()=>{
+        this.setState({
+            ...this.state,
+            modal : !this.state.modal
+        })
+    });
+
     issueData = {
-        skillId:"",
+        skillname:"",
         issueContent:""
     };
 
@@ -38,9 +73,6 @@ class Issues extends Component {
                 console.log("Error");
             }
         });
-
-
-
     }
 
     getOpenIssues = (()=>{
@@ -52,10 +84,10 @@ class Issues extends Component {
                     let closedIssues = [];
                     data.map((issue)=>{
                         if(issue.isopen){
-                            openIssues.push(issue);
+                            this.props.setOpenIssues(issue);
                         }
                         else{
-                            closedIssues.push(issue);
+                            this.props.setResolvedIssues(issue);
                         }
                         return issue;
                     });
@@ -77,10 +109,11 @@ class Issues extends Component {
         API.getSkillSets().then((response)=>{
             if(response.status===201){
                 response.json().then((data)=>{
-                    this.setState({
+                    this.props.setSkills(data);
+                    /*this.setState({
                         ...this.state,
                         skills:data
-                    })
+                    })*/
                 })
             }
             else if(response.status===204) {
@@ -114,48 +147,50 @@ class Issues extends Component {
     });
 
     showRaiseIssueTabOnWindow = (()=>{
-        if(this.state.showRaiseIssueTab){
+        if(this.state.modal){
             return(
-                <div>
-                    Skills:
-                    <select id="ddlSkills" className="dropdown" onChange={((event)=>{
-                        // console.log(event.target.value);
-                        // this.setState({
-                        //     ...this.state.raiseIssue,
-                        //     skillid : event.target.value
-                        // });
-                        this.issueData.skillId=event.target.value;
-                    })
-                    }>
-                        <option>select</option>
-                        {
-                            this.state.skills.map((item)=>{
-                                return(
-                                    <ShowSkillsInDropDown
-                                        key={item._id}
-                                        item={item}
-                                        // skillsSelectedToRaiseIssue = {this.skillsSelectedToRaiseIssue}
-                                    />
-
-                                );
-                            })
-                        }
-                    </select>
-                    <div>
-                        <input type="text" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
-                            this.issueData.issueContent=event.target.value;
+                <Modal isOpen={this.state.modal} toggle={this.modal} className={this.props.className || "admin-modal"}>
+                    <ModalHeader toggle={this.toggle}>Add Issue</ModalHeader>
+                    <ModalBody>
+                        Skills:
+                        <select id="ddlSkills" className="dropdown" onChange={((event)=>{
+                            // console.log(event.target.value);
                             // this.setState({
                             //     ...this.state.raiseIssue,
-                            //     issuecontent : event.target.value
+                            //     skillid : event.target.value
                             // });
-                        })}/>
-                    </div>
-                    <div>
-                        <button onClick={(()=>{this.submitIssue()})}>
-                            Submit Issue
-                        </button>
-                    </div>
-                </div>
+                            this.issueData.skillname=event.target.value;
+                        })
+                        }>
+                            <option>select</option>
+                            {
+                                this.props.state.skillset.map((item)=>{
+                                    return(
+                                        <option value={item.skillname}>
+                                            {item.skillname}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
+                        <div>
+                            <input type="text" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
+                                this.issueData.issueContent=event.target.value;
+                                // this.setState({
+                                //     ...this.state.raiseIssue,
+                                //     issuecontent : event.target.value
+                                // });
+                            })}/>
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <div>
+                            <button onClick={(()=>{this.submitIssue()})}>
+                                Submit Issue
+                            </button>
+                        </div>
+                    </ModalFooter>
+                </Modal>
             )
         }
         else {
@@ -185,10 +220,7 @@ class Issues extends Component {
             <div className="container-fluid">
                 <div>
                     <button className="btn btn-primary" value="Raise Issue" onClick={(()=>{
-                        this.setState({
-                            ...this.state,
-                            showRaiseIssueTab:true
-                        });
+                        this.toggle()
                     })}>
                         Raise Issue
                     </button>
@@ -200,8 +232,9 @@ class Issues extends Component {
                         <div className="row">
                             <h4 > My Open Issues </h4>
                             <hr/>
+                            {console.log(this.props)}
                             {
-                                this.state.openIssues.map((issue)=>{
+                                this.props.state.userIssues.openIssues.map((issue)=>{
                                     return(
                                         <ShowOpenIssues
                                             key={issue._id}
@@ -215,7 +248,7 @@ class Issues extends Component {
                             <h4> Previously Resolved Issues </h4>
                             <hr/>
                             {
-                                this.state.closedIssues.map((issue)=>{
+                                this.props.state.userIssues.resolvedIssues.map((issue)=>{
                                     return(
                                         <ShowClosedIssues
                                             key={issue._id}
@@ -232,4 +265,19 @@ class Issues extends Component {
     }
 }
 
-export default Issues;
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setOpenIssues : (data) => dispatch(setOpenIssues(data)),
+        setResolvedIssues: (data) => dispatch(setResolvedIssues(data)),
+        setSkills: (data) => dispatch(setSkills(data))
+    };
+}
+
+function mapStateToProps(state) {
+    console.log(state);
+    return {state : state};
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Issues));
