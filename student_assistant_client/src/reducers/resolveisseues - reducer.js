@@ -1,6 +1,6 @@
 import {RESOLVE_ISSUES} from '../action/Resolveissue';
 
-const issues ={};
+const issues = [];
 
 const resolveissues=(state=issues,action)=>
 {
