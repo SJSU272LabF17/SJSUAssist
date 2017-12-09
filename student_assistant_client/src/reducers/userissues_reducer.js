@@ -1,4 +1,4 @@
-import {SETOPENISSUES, SETRESOLVEDISSUES} from '../action/userissues';
+import {SETOPENISSUES, SETRESOLVEDISSUES, ADDOPENISSUES, ADDRESOLVEDISSUES} from '../action/userissues';
 
 const initial_state = {
     openIssues : [],
@@ -29,6 +29,30 @@ const setResolvedIssues = (state, action) => {
     }
 };
 
+const addOpenIssues = (state, action) => {
+    console.log(state);
+    console.log(action);
+    state.openIssues.push(action.data);
+    console.log("Open Issues After Adding: ");
+    console.log(state);
+    return {
+        ...state,
+        [action.openIssues]: state.openIssues
+    }
+};
+
+const addResolvedIssues = (state, action) => {
+    console.log(state);
+    console.log(action);
+    // state.resolvedIssues.push(action.data);
+    // console.log("Resolved Issues After Adding: ");
+    // console.log(state);
+    return {
+        ...state,
+        resolvedIssues : action.data
+    }
+};
+
 const handleUserIssues = (state = initial_state, action)=>
 {
     switch (action.type) {
@@ -36,6 +60,10 @@ const handleUserIssues = (state = initial_state, action)=>
             return setOpenIssues(state, action);
         case SETRESOLVEDISSUES :
             return setResolvedIssues(state, action);
+        case ADDOPENISSUES :
+            return addOpenIssues(state, action);
+        case ADDRESOLVEDISSUES :
+            return addResolvedIssues(state, action);
         default :
             return state;
     }
