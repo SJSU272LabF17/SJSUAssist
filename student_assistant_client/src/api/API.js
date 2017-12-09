@@ -221,3 +221,16 @@ export const getActivityData = () =>
         console.log("Error: " + error);
         return error;
     });
+
+export const resolveIssue= () =>
+    fetch (`${api}/users/resolveIssue`,
+        {
+            method: 'POST',
+            credentials: 'include'
+        }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("Error: " + error);
+        return error;
+    });
+

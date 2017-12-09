@@ -30,7 +30,7 @@ import {
     Dropdown
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {setOpenIssues, setResolvedIssues} from '../action/userissues';
+import {setOpenIssues, setResolvedIssues, addOpenIssues, addResolvedIssues} from '../action/userissues';
 import {setSkills} from '../action/setskills';
 
 class Issues extends Component {
@@ -62,7 +62,7 @@ class Issues extends Component {
         API.getSession().then((response)=>{
             if(response.status===201){
                 console.log("session active");
-                this.getOpenIssues();
+                this.getUserIssues();
                 this.getSkillSets();
             }
             else if(response.status===203){
@@ -74,7 +74,7 @@ class Issues extends Component {
         });
     }
 
-    getOpenIssues = (()=>{
+    getUserIssues = (()=>{
         API.getUserIssues().then((response)=>{
             console.log(response.status);
             if(response.status===201){
@@ -129,14 +129,27 @@ class Issues extends Component {
         API.addIssue(this.issueData).then((response)=>{
             console.log(response.status);
             if(response.status===201){
-                this.setState({
-                    ...this.state,
-                    showRaiseIssueTab : false
+                response.json().then((data)=>{
+                    this.props.addOpenIssues(data);
                 });
-                this.getOpenIssues();
-                this.getSkillSets();
             }
+            else {
+                console.log("Error");
+            }
+            this.toggle();
         });
+    });
+
+    resolveIssue = ((issue)=>{
+       API.resolveIssue().then((response)=>{
+          console.log(response.status);
+          if(response.status===201){
+              this.props.addResolvedIssues(issue);
+          }
+          else {
+              console.log("Error");
+          }
+       });
     });
 
     showRaiseIssueTabOnWindow = (()=>{
@@ -271,7 +284,9 @@ function mapDispatchToProps(dispatch) {
     return {
         setOpenIssues : (data) => dispatch(setOpenIssues(data)),
         setResolvedIssues: (data) => dispatch(setResolvedIssues(data)),
-        setSkills: (data) => dispatch(setSkills(data))
+        setSkills: (data) => dispatch(setSkills(data)),
+        addOpenIssues: (data) => dispatch(addOpenIssues(data)),
+        addResolvedIssues: (data) => dispatch(addResolvedIssues(data))
     };
 }
 
