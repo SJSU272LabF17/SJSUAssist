@@ -14,7 +14,7 @@ var signup = require('./routes/signup');
 var openissues = require('./routes/openissues');
 var resolveissue = require('./routes/resolveissue');
 
-var mongoSessionURL = "mongodb://localhost:27017/student_assistant";
+var mongoSessionURL = "mongodb://student:student@studentassistantsystem-shard-00-00-5nj8l.mongodb.net:27017,studentassistantsystem-shard-00-01-5nj8l.mongodb.net:27017,studentassistantsystem-shard-00-02-5nj8l.mongodb.net:27017/student_assist?ssl=true&replicaSet=studentassistantsystem-shard-0&authSource=admin";
 var expressSessions = require("express-session");
 var mongoStore = require("connect-mongo/es5")(expressSessions);
 
