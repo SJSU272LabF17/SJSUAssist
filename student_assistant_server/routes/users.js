@@ -182,10 +182,10 @@ router.get('/getskillsets', function (req, res, next) {
 
 router.post('/addissue', function (req, res, next) {
     try {
-        console.log("In fetching activity");
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
             let data = req.body;
+            data.issueId = new ObjectId();
             console.log("data:"+JSON.stringify(data));
             mongo.connect(mongoURL, function () {
 
@@ -194,7 +194,7 @@ router.post('/addissue', function (req, res, next) {
                 users.updateOne({_id: username}, {
                     $push: {
                         issues_raised: {
-                            _id: new ObjectId(),
+                            _id: data.issueId,
                             topic: data.skillId,
                             issuecontent: data.issueContent,
                             isopen : true
@@ -206,7 +206,7 @@ router.post('/addissue', function (req, res, next) {
                         throw err;
                     }
                     if(result.result.nModified===1){
-                        res.status(201).send({"message":"Issue added successfully"});
+                         res.status(201).send(data);
                     }
                     else {
                         res.status(301).send({"message":"Failed to add Issue"});
@@ -229,7 +229,6 @@ router.post('/getUserIssues', function (req, res, next) {
     try {
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
-            let jsonObj=[];
             mongo.connect(mongoURL, function () {
 
                 let users = mongo.collection("users");
@@ -265,7 +264,8 @@ router.post('/getUserIssues', function (req, res, next) {
                                 let count = 0;
                                 result[0].issues_raised.map((issue)=>{
                                     let temp={};
-                                    temp["skillId"]=issue._id;
+                                    temp["issueId"]=issue._id;
+                                    temp["skillId"]=issue.topic;
                                     temp["issueContent"]=issue.issuecontent;
                                     if(issue.isopen){
                                         jsonObj.openIssues.push(temp);
@@ -275,6 +275,7 @@ router.post('/getUserIssues', function (req, res, next) {
                                     }
                                     count++;
                                     if(result[0].issues_raised.length===count){
+                                        console.log(jsonObj);
                                         res.status(201).send(jsonObj);
                                     }
                                 });
@@ -304,6 +305,51 @@ router.post('/getUserIssues', function (req, res, next) {
         res.status(301).send({"message" : "Error while fetching activity data"});
     }
 });
+
+router.post('/resolveIssue', function (req, res, next) {
+    try {
+        if(req.session.username!==null || req.session.username!==undefined) {
+            let username = req.session.username;
+            let data = req.body;
+            console.log("data:"+JSON.stringify(data));
+            mongo.connect(mongoURL, function () {
+
+                let users = mongo.collection("users");
+
+                users.updateOne({_id: username}, {
+                    $set: {
+                        issues_raised: {
+                            _id: data.issueId,
+                            topic: data.skillId,
+                            issuecontent: data.issueContent,
+                            isopen : true
+                        }
+                    }
+                }, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    if(result.result.nModified===1){
+                        res.status(201).send(data);
+                    }
+                    else {
+                        res.status(301).send({"message":"Failed to add Issue"});
+                    }
+                });
+
+            });
+        }
+        else{
+            res.status(203).send({"message":"Session Expired. Please Login Again"});
+        }
+    }
+    catch (e){
+        console.log(e);
+        res.status(301).send({"message" : "Error while fetching activity data"});
+    }
+});
+
 
 deleteFromDatabase = ((name, path) => {
     try{
