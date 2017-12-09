@@ -24,8 +24,7 @@ router.post('/doSignUp', function(req, res, next){
             hashpassword : bcrypt.hashSync(req.body.password, salt),
             gender:'',
             skillset:[],
-            issues_raised:[],
-            issues_resolved:[]
+            issues_raised:[]
         };
 
         mongo.connect(mongoURL, function () {

@@ -225,7 +225,7 @@ router.post('/addissue', function (req, res, next) {
     }
 });
 
-router.post('/getopenissues', function (req, res, next) {
+router.post('/getUserIssues', function (req, res, next) {
     try {
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
@@ -245,18 +245,6 @@ router.post('/getopenissues', function (req, res, next) {
                         $project:
                             {
                                 issues_raised:1,
-                                /*openIssues:
-                                    {
-                                        $filter:
-                                            {
-                                                input: '$issues_raised',
-                                                as: 'issue',
-                                                cond:
-                                                    {
-                                                        $eq:['$$issue.isopen', true]
-                                                    }
-                                            }
-                                    }*/
                             }
                     }
                 ], function (err, result) {
@@ -267,40 +255,29 @@ router.post('/getopenissues', function (req, res, next) {
                     else
                     {
                         console.log(result[0].issues_raised);
-                        console.log(result[0].issues_raised.length);
+                        // console.log(result[0].issues_raised.length);
                         if(result[0].issues_raised){
                             if(result[0].issues_raised.length>0){
-                                let skillset = mongo.collection("skillset");
-                                // for(let i=0;i<result[0].issues_raised.length;i++){
+                                let jsonObj = {
+                                    openIssues : [],
+                                    resolvedIssues : []
+                                };
+                                let count = 0;
                                 result[0].issues_raised.map((issue)=>{
                                     let temp={};
-                                    temp["id"]=issue._id;
-                                    temp["issuecontent"]=issue.issuecontent;
-                                    temp["isopen"]=issue.isopen;
-                                    skillset.find({_id:ObjectId(issue.topic)}).toArray(function (err, result1) {
-                                        if (err) {
-                                            throw err;
-                                        }
-                                        else {
-                                            console.log("From Skillset");
-                                            console.log(result1);
-                                            if (result1.length === 1) {
-                                                temp["topic"]=result1[0].skillname;
-                                                jsonObj.push(temp);
-                                                if(jsonObj.length===result[0].issues_raised.length){
-                                                    res.status(201).send(jsonObj);
-                                                }
-                                            }
-                                            else {
-                                                res.status(301).send({"message": "Failed to fetch Profile Data"});
-                                            }
-                                        }
-
-                                    });
+                                    temp["skillId"]=issue._id;
+                                    temp["issueContent"]=issue.issuecontent;
+                                    if(issue.isopen){
+                                        jsonObj.openIssues.push(temp);
+                                    }
+                                    else {
+                                        jsonObj.resolvedIssues.push(temp);
+                                    }
+                                    count++;
+                                    if(result[0].issues_raised.length===count){
+                                        res.status(201).send(jsonObj);
+                                    }
                                 });
-
-                                // }
-                                // res.status(201).send(result[0].issues_raised);
                             }
                             else if(result[0].issues_raised.length===0){
                                 res.status(204).send({"message":"No Open Issues or Closed added"});
