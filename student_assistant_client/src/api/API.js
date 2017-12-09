@@ -99,8 +99,8 @@ export const addIssue = (payload) =>
     });
 
 
-export const getOpenIssues = () =>
-    fetch(`${api}/users/getopenissues`,{
+export const getUserIssues = () =>
+    fetch(`${api}/users/getUserIssues`,{
         method:'POST',
         headers: {
             ...headers,
@@ -114,25 +114,8 @@ export const getOpenIssues = () =>
             return error;
         });
 
-export const sendDirectorayPath = (payload) =>
-    fetch(`${api}/users/setdirPath`, {
-        method: 'POST',
-        headers: {
-            ...headers,
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(payload),
-        credentials:'include'
-    }).then(res => {
-        return res;
-    })
-        .catch(error => {
-            console.log("This is error");
-            return error;
-        });
-
-export const doShareData = (payload) =>
-    fetch (`${api}/users/share`,
+export const comments = (payload) =>
+    fetch (`${api}/resolveissue/comments`,
         {
             method: 'POST',
             headers: {
@@ -142,14 +125,14 @@ export const doShareData = (payload) =>
             body: JSON.stringify(payload),
             credentials: 'include'
         }).then(res => {
-        return res;
+        return res.json();
     }).catch(error => {
         console.log("Error: " + error);
         return error;
     });
 
-export const doRemoveSharing = (payload) =>
-    fetch (`${api}/users/removesharing`,
+export const addcomments = (payload) =>
+    fetch (`${api}/resolveissue/addcomments`,
         {
             method: 'POST',
             headers: {
@@ -159,150 +142,7 @@ export const doRemoveSharing = (payload) =>
             body: JSON.stringify(payload),
             credentials: 'include'
         }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const changeStarredStatus = (payload) =>
-    fetch (`${api}/users/changestarredstatus`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const fetchStarredData = (payload) =>
-    fetch (`${api}/users/getStarredData`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const fetchDataSharedByUser = (payload) =>
-    fetch (`${api}/users/getDataSharedByUser`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-
-export const fetchDataSharedWithUser = (payload) =>
-    fetch (`${api}/users/fetchDataSharedWithUser`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const accessSharedData = (payload) =>
-    fetch (`${api}/users/accessSharedData`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const changeProfile = (payload) =>
-    fetch (`${api}/users/changeProfile`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const getprofile = () =>
-    fetch (`${api}/users/getprofile`, {
-        method: 'GET',
-        credentials:'include'
-    }).then(res => {
-        return res;
-    }).catch(error => {
-            console.log("This is error");
-            return error;
-    });
-
-export const getActivityData = () =>
-    fetch (`${api}/users/getActivityData`,
-        {
-            method: 'POST',
-            credentials: 'include'
-        }).then(res => {
-        return res;
-    }).catch(error => {
-        console.log("Error: " + error);
-        return error;
-    });
-
-export const deleteContent = (payload) =>
-    fetch (`${api}/users/deleteContent`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            credentials: 'include'
-        }).then(res => {
-        return res;
+        return res.json();
     }).catch(error => {
         console.log("Error: " + error);
         return error;
@@ -342,8 +182,8 @@ export const resolveissue = (payload) =>
         return error;
     });
 
-export const comments = (payload) =>
-    fetch (`${api}/resolveissue/comments`,
+export const changeProfile = (payload) =>
+    fetch (`${api}/users/changeProfile`,
         {
             method: 'POST',
             headers: {
@@ -353,62 +193,31 @@ export const comments = (payload) =>
             body: JSON.stringify(payload),
             credentials: 'include'
         }).then(res => {
-        return res.json();
+        return res;
     }).catch(error => {
         console.log("Error: " + error);
         return error;
     });
 
-export const addcomments = (payload) =>
-    fetch (`${api}/resolveissue/addcomments`,
+export const getprofile = () =>
+    fetch (`${api}/users/getprofile`, {
+        method: 'GET',
+        credentials:'include'
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        return error;
+    });
+
+export const getActivityData = () =>
+    fetch (`${api}/users/getActivityData`,
         {
             method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
             credentials: 'include'
         }).then(res => {
-        return res.json();
+        return res;
     }).catch(error => {
         console.log("Error: " + error);
         return error;
     });
-// export const fetchSelectedDataSharedWithUser = (payload) =>
-//     fetch (`${api}/users/accessSelectedSharedData`,
-//         {
-//             method: 'POST',
-//             headers: {
-//                 ...headers,
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(payload),
-//             credentials: 'include'
-//         }).then(res => {
-//         return res;
-//     }).catch(error => {
-//         console.log("Error: " + error);
-//         return error;
-//     });
-
-
-
-// export const getStarredDirectoryData =
-
-/*
-export const doCalculate = (payload) =>
-    fetch (`${api}/users/doCalculate`,
-        {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        }).then(res => {
-        return res.json();
-    }).catch(error => {
-        console.log("Error: "+error);
-        return error;
-    });*/

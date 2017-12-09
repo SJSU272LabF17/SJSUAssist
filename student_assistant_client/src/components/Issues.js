@@ -53,7 +53,7 @@ class Issues extends Component {
     });
 
     issueData = {
-        skillname:"",
+        skillId:"",
         issueContent:""
     };
 
@@ -75,21 +75,15 @@ class Issues extends Component {
     }
 
     getOpenIssues = (()=>{
-        API.getOpenIssues().then((response)=>{
+        API.getUserIssues().then((response)=>{
             console.log(response.status);
             if(response.status===201){
                 response.json().then((data)=>{
+
                     let openIssues = [];
                     let closedIssues = [];
-                    data.map((issue)=>{
-                        if(issue.isopen){
-                            this.props.setOpenIssues(issue);
-                        }
-                        else{
-                            this.props.setResolvedIssues(issue);
-                        }
-                        return issue;
-                    });
+                    this.props.setOpenIssues(data.openIssues);
+                    this.props.setResolvedIssues(data.resolvedIssues);
                     console.log(openIssues);
                     console.log(closedIssues);
                     console.log(data);
@@ -151,42 +145,40 @@ class Issues extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.modal} className={this.props.className || "admin-modal"}>
                     <ModalHeader toggle={this.toggle}>Add Issue</ModalHeader>
                     <ModalBody>
-                        Skills:
-                        <select id="ddlSkills" className="dropdown" onChange={((event)=>{
-                            // console.log(event.target.value);
-                            // this.setState({
-                            //     ...this.state.raiseIssue,
-                            //     skillid : event.target.value
-                            // });
-                            this.issueData.skillname=event.target.value;
-                        })
-                        }>
-                            <option>select</option>
-                            {
-                                this.props.state.skillset.map((item)=>{
-                                    return(
-                                        <option value={item.skillname}>
-                                            {item.skillname}
-                                        </option>
-                                    );
-                                })
-                            }
-                        </select>
-                        <div>
-                            <input type="text" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
+                        <FormGroup>
+                            Skills:
+                            <select id="ddlSkills"  onChange={((event)=>{
+                                this.issueData.skillId=event.target.value;
+                            })}>
+                                <option>select</option>
+                                {
+                                    this.props.state.skillset.map((item)=>{
+                                        return(
+                                            <option value={item._id}>
+                                                {item._id}
+                                            </option>
+                                        );
+                                    })
+                                }
+                            </select>
+                        </FormGroup>
+                        <FormGroup>
+                            <div>
+                            <textarea className="form-control" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
                                 this.issueData.issueContent=event.target.value;
                                 // this.setState({
                                 //     ...this.state.raiseIssue,
                                 //     issuecontent : event.target.value
                                 // });
                             })}/>
-                        </div>
+                            </div>
+                        </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                         <div>
-                            <button onClick={(()=>{this.submitIssue()})}>
+                            <Button className="btn btn-info" onClick={(()=>{this.submitIssue()})}>
                                 Submit Issue
-                            </button>
+                            </Button>
                         </div>
                     </ModalFooter>
                 </Modal>
@@ -228,33 +220,43 @@ class Issues extends Component {
 
                     <hr/>
                     <div className="row">
-                        <div className="row">
-                            <h4 > My Open Issues </h4>
-                            <hr/>
-                            {
-                                this.props.state.userIssues.openIssues.map((issue)=>{
-                                    return(
-                                        <ShowOpenIssues
-                                            key={issue._id}
-                                            issue={issue}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className="col-sm-12 col-md-12 col-lg-12">
+                            <Card >
+                                <CardHeader>
+                                    <h4 > My Open Issues </h4>
+                                </CardHeader>
+                                <CardBody>
+                                    {
+                                        this.props.state.userIssues.openIssues.map((issue)=>{
+                                            return(
+                                                <ShowOpenIssues
+                                                    key={issue._id}
+                                                    issue={issue}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </CardBody>
+                            </Card>
                         </div>
-                        <div className="row">
-                            <h4> Previously Resolved Issues </h4>
-                            <hr/>
-                            {
-                                this.props.state.userIssues.resolvedIssues.map((issue)=>{
-                                    return(
-                                        <ShowClosedIssues
-                                            key={issue._id}
-                                            issue={issue}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className="col-sm-12 col-md-12 col-lg-12">
+                            <Card>
+                                <CardHeader>
+                                    <h4> Previously Resolved Issues </h4>
+                                </CardHeader>
+                                <CardBody>
+                                    {
+                                        this.props.state.userIssues.resolvedIssues.map((issue)=>{
+                                            return(
+                                                <ShowClosedIssues
+                                                    key={issue._id}
+                                                    issue={issue}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </div>

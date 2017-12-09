@@ -8,24 +8,24 @@ const initial_state = {
 const setOpenIssues = (state, action) => {
     console.log(state);
     console.log(action);
-    state.openIssues.push(action.data);
-    console.log("Open Issues After Adding: ");
-    console.log(state);
+    // state.openIssues.push(action.data);
+    // console.log("Open Issues After Adding: ");
+    // console.log(state);
     return {
         ...state,
-        openIssues : state.openIssues
+        openIssues : action.data
     }
 };
 
 const setResolvedIssues = (state, action) => {
     console.log(state);
     console.log(action);
-    state.resolvedIssues.push(action.data);
-    console.log("Resolved Issues After Adding: ");
-    console.log(state);
+    // state.resolvedIssues.push(action.data);
+    // console.log("Resolved Issues After Adding: ");
+    // console.log(state);
     return {
         ...state,
-        resolvedIssues : state.resolvedIssues
+        resolvedIssues : action.data
     }
 };
 
