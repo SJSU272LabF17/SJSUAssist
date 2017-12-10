@@ -65,6 +65,7 @@ router.post('/getActivityData', function (req, res, next) {
         res.status(301).send({"message" : "Error while fetching activity data"});
     }
 });
+
 router.post('/changeProfile', function (req, res, next) {
     try {
         if(req.session.username!==null || req.session.username!==undefined) {
@@ -206,7 +207,7 @@ router.post('/addissue', function (req, res, next) {
                         throw err;
                     }
                     if(result.result.nModified===1){
-                         res.status(201).send(data);
+                        res.status(201).send(data);
                     }
                     else {
                         res.status(301).send({"message":"Failed to add Issue"});
@@ -316,25 +317,30 @@ router.post('/resolveIssue', function (req, res, next) {
 
                 let users = mongo.collection("users");
 
-                users.updateOne({_id: username}, {
+                users.updateOne({'issues_raised._id': ObjectId(data.issueId)},{
                     $set: {
-                        issues_raised: {
-                            _id: data.issueId,
-                            topic: data.skillId,
-                            issuecontent: data.issueContent,
-                            isopen : true
-                        }
+                        'issues_raised.$.isopen' : false
                     }
                 }, function (err, result) {
                     if (err) {
                         console.log(err);
                         throw err;
                     }
-                    if(result.result.nModified===1){
-                        res.status(201).send(data);
-                    }
                     else {
-                        res.status(301).send({"message":"Failed to add Issue"});
+                        // console.log(result);
+                        if(result){
+                            console.log(result.result);
+                            if(result.result.nModified===1){
+                                res.status(201).send(data);
+                            }
+                            else {
+                                res.status(301).send({"message":"Failed to add Issue"});
+                            }
+                        }
+                        else {
+                            res.status(301).send({"message":"Failed to add Issue"});
+                        }
+
                     }
                 });
 
@@ -351,13 +357,5 @@ router.post('/resolveIssue', function (req, res, next) {
 });
 
 
-deleteFromDatabase = ((name, path) => {
-    try{
-        console.log("Delete here: "+name+"   "+path);
-    }
-    catch(e) {
-        throw e;
-    }
-});
 
 module.exports = router;
