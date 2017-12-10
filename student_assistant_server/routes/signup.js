@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/doSignUp', function(req, res, next){
     try {
-        console.log(req.body);
+        console.log("Inside do signup, req.body is:"+req.body);
 
         var salt = bcrypt.genSaltSync(10);
 
@@ -22,7 +22,10 @@ router.post('/doSignUp', function(req, res, next){
             lastname : req.body.lastname,
             username : req.body.username,
             hashpassword : bcrypt.hashSync(req.body.password, salt),
-            gender:'',
+            studentid : req.body.StudentID,
+            dateofbirth : req.body.DateOfBirth,
+            gender:req.body.gender,
+
             skillset:[],
             issues_raised:[]
         };
@@ -50,24 +53,7 @@ router.post('/doSignUp', function(req, res, next){
                         console.log(result1.insertedCount);
                         if (result1.insertedCount === 1) {
                             console.log("Sign up successful");
-                            // let userprofilecollection = mongo.collection("userprofile");
-                            // let profiledata = {
-                            //     overview : "",
-                            //     work: "",
-                            //     education: "",
-                            //     contactinfo: "",
-                            //     lifeevents: "",
-                            //     music: false,
-                            //     sports: false,
-                            //     reading: false,
-                            //     _id : data.username
-                            // };
-                            // userprofilecollection.insertOne(profiledata ,function (err, result2) {
-                            //     console.log(result2);
-                            //     if(err){
-                            //         console.log(err);
-                            //         throw "Error while adding data into userprofile table";
-                            //     }
+
                                 act.insertIntoActivity(function (err, activityInserted) {
                                     if(err){
                                         console.log(err);
