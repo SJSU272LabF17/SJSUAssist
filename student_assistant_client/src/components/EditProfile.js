@@ -26,8 +26,9 @@ class EditProfile extends Component{
             firstname: "",
             lastname: "",
             gender: "",
-            skillset: "",
-            dob:""
+            skillset: [],
+            dateofbirth:"",
+            studentid:""
         };
     }
 
@@ -46,11 +47,47 @@ class EditProfile extends Component{
             }
         });
     });
-/* will add later */
+    /* will add later */
+    // Create one API CALL INSIDE COMPONENT WILL MOUNT
+    // FROM THE RESPONSE SET THE STATE ACCORDING TO THE FETCHED VALUES
+    // EXAMOLE THIS.STATE.skillseT
+    // this.setState({
+//     username: WHATEVER VALUES GET IN RESPONSE,
+//     password:""
+// });
     componentWillMount(){
+        API.getprofile().then((response)=>{
+            if(response.status===201){
+                console.log("Inside getprofile CWM");
+                response.json().then((data)=>{
+
+                    this.setState({
+
+                        username : data.username,
+                        firstname : data.firstname,
+                        lastname : data.lastname,
+                        studentid : data.studentid,
+                        gender : data.gender,
+                        dateofbirth : data.dateofbirth,
+
+
+                    });
+                   // console.log("username:"+username);
+                    console.log("username:"+this.props.username);
+
+                });
+            }
+            else  if(response.status===203){
+                this.props.handlePageChange("/home/login");
+            }
+            else  if(response.status===301){
+                console.log("Error while fetching profile data")
+            }
+        });
     }
 
     render(){
+
         return(
             <div className="container-fluid">
                 <div>
@@ -77,6 +114,7 @@ class EditProfile extends Component{
                                         type="text"
                                         className="form-control"
                                         id="txtoverview"
+                                        value={this.props.username}
                                         required
                                         onChange={(event) => {
                                             this.setState({
@@ -97,6 +135,7 @@ class EditProfile extends Component{
                                     <input
                                         type="text"
                                         className="form-control"
+                                     //   value={this.props.firstname}
                                         id="txtwork"
                                         onChange={(event) => {
                                             this.setState({
@@ -117,6 +156,7 @@ class EditProfile extends Component{
                                     <input
                                         type="text"
                                         className="form-control"
+                                     //   value={this.props.lastname}
                                         id="txteducation"
                                         onChange={(event) => {
                                             this.setState({
@@ -137,6 +177,7 @@ class EditProfile extends Component{
                                     <input
                                         type="text"
                                         className="form-control"
+                                     //   value={this.props.gender}
                                         id="txtcontact"
                                         onChange={(event) => {
                                             this.setState({
@@ -157,6 +198,7 @@ class EditProfile extends Component{
                                     <input
                                         type="text"
                                         className="form-control"
+                                     //   value={this.props.dateofbirth}
                                         id="txtlifeevents"
                                         onChange={(event) => {
                                             this.setState({

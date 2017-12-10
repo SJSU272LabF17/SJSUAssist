@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as API from '../api/API';
 import {Route,withRouter,Switch} from 'react-router-dom';
 import ShowProfileData from './ShowProfileData';
+import EditProfile from "./EditProfile";
 
 class Profile extends Component{
 
@@ -60,6 +61,12 @@ class Profile extends Component{
                                 <div className="col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-sm-1 col-md-1 col-lg-1">
                                     <input type="button" id="btnoverviewedit" value="Edit" className="btn btn-primary"
                                            onClick={(()=>{
+                                               this.state.recprofiledata.map((item, index)=>{
+                                                   return(<EditProfile
+                                                       key={index}
+                                                       item={item}
+                                                   />)
+                                               })
                                                this.props.history.push("/user/editprofile");
                                            })}
                                     />

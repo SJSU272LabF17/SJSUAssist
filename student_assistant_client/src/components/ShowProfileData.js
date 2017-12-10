@@ -84,7 +84,6 @@ render(){
                         <div className="col-sm-3 col-md-3 col-lg-3">
                             <label className="form-horizontal form-control-static">Gender:</label>
                         </div>
-                        <div className="col-sm-8 col-md-8 col-lg-8">
                             <div className="col-sm-5 col-md-5 col-lg-5">
                                 <input
                                     type="text"
@@ -93,7 +92,6 @@ render(){
                                     value={item.gender}
                                 />
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div className="form-group">
@@ -114,7 +112,7 @@ render(){
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">DOB:</label>
+                            <label className="form-horizontal form-control-static">DateOfBirth:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
