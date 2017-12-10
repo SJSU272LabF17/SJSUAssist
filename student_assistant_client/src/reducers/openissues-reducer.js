@@ -1,6 +1,6 @@
 import {UPDATE_ISSUES} from '../action/openissuelist';
 
-const issues ={};
+const issues =[];
 
 const getissues=(state=issues,action)=>
 {

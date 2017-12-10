@@ -5,21 +5,55 @@ import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import ShowClosedIssues from './ShowClosedIssues';
 import ShowOpenIssues from './ShowOpenIssues';
+import {
+    Row,
+    Col,
+    Card,
+    CardHeader,
+    CardBody,
+    Table,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
+    FormGroup,
+    FormText,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupButton,
+    Dropdown
+} from 'reactstrap';
+import {connect} from 'react-redux';
+import {setOpenIssues, setResolvedIssues, addOpenIssues, addResolvedIssues} from '../action/userissues';
+import {setSkills} from '../action/setskills';
 
 class Issues extends Component {
 
     constructor(){
         super();
         this.state = {
-            showRaiseIssueTab:false,
+            modal:false,
             skills:{},
             openIssues:[],
             closedIssues:[]
         };
     }
 
+    toggle = (()=>{
+        this.setState({
+            ...this.state,
+            modal : !this.state.modal
+        })
+    });
+
     issueData = {
-        skillname:"",
+        skillId:"",
         issueContent:""
     };
 
@@ -28,7 +62,7 @@ class Issues extends Component {
         API.getSession().then((response)=>{
             if(response.status===201){
                 console.log("session active");
-                this.getOpenIssues();
+                this.getUserIssues();
                 this.getSkillSets();
             }
             else if(response.status===203){
@@ -38,27 +72,18 @@ class Issues extends Component {
                 console.log("Error");
             }
         });
-
-
-
     }
 
-    getOpenIssues = (()=>{
-        API.getOpenIssues().then((response)=>{
+    getUserIssues = (()=>{
+        API.getUserIssues().then((response)=>{
             console.log(response.status);
             if(response.status===201){
                 response.json().then((data)=>{
+
                     let openIssues = [];
                     let closedIssues = [];
-                    data.map((issue)=>{
-                        if(issue.isopen){
-                            openIssues.push(issue);
-                        }
-                        else{
-                            closedIssues.push(issue);
-                        }
-                        return issue;
-                    });
+                    this.props.setOpenIssues(data.openIssues);
+                    this.props.setResolvedIssues(data.resolvedIssues);
                     console.log(openIssues);
                     console.log(closedIssues);
                     console.log(data);
@@ -77,10 +102,11 @@ class Issues extends Component {
         API.getSkillSets().then((response)=>{
             if(response.status===201){
                 response.json().then((data)=>{
-                    this.setState({
+                    this.props.setSkills(data);
+                    /*this.setState({
                         ...this.state,
                         skills:data
-                    })
+                    })*/
                 })
             }
             else if(response.status===204) {
@@ -103,57 +129,72 @@ class Issues extends Component {
         API.addIssue(this.issueData).then((response)=>{
             console.log(response.status);
             if(response.status===201){
-                this.setState({
-                    ...this.state,
-                    showRaiseIssueTab : false
+                response.json().then((data)=>{
+                    this.props.addOpenIssues(data);
                 });
-                this.getOpenIssues();
-                this.getSkillSets();
             }
+            else {
+                console.log("Error");
+            }
+            this.toggle();
         });
     });
 
-    showRaiseIssueTabOnWindow = (()=>{
-        if(this.state.showRaiseIssueTab){
-            return(
-                <div>
-                    Skills:
-                    <select id="ddlSkills" className="dropdown" onChange={((event)=>{
-                        // console.log(event.target.value);
-                        // this.setState({
-                        //     ...this.state.raiseIssue,
-                        //     skillid : event.target.value
-                        // });
-                        this.issueData.skillId=event.target.value;
-                    })
-                    }>
-                        <option>select</option>
-                        {
-                            this.state.skills.map((item)=>{
-                                return(
-                                    <option value={item.skillname}>
-                                        {item.skillname}
-                                    </option>
+    resolveIssue = ((issue)=>{
+       API.resolveUserIssue(issue).then((response)=>{
+          console.log(response.status);
+          if(response.status===201){
+              this.props.addResolvedIssues(issue);
+          }
+          else {
+              // console.log("Error");
+          }
+       });
+    });
 
-                                );
-                            })
-                        }
-                    </select>
-                    <div>
-                        <input type="text" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
-                            this.issueData.issueContent=event.target.value;
-                            // this.setState({
-                            //     ...this.state.raiseIssue,
-                            //     issuecontent : event.target.value
-                            // });
-                        })}/>
-                    </div>
-                    <div>
-                        <button onClick={(()=>{this.submitIssue()})}>
-                            Submit Issue
-                        </button>
-                    </div>
-                </div>
+    showRaiseIssueTabOnWindow = (()=>{
+        if(this.state.modal){
+            return(
+                <Modal isOpen={this.state.modal} toggle={this.modal} className={this.props.className || "admin-modal"}>
+                    <ModalHeader toggle={this.toggle}>Add Issue</ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            Skills:
+                            <select id="ddlSkills"  onChange={((event)=>{
+                                this.issueData.skillId=event.target.value;
+                            })}>
+                                <option>select</option>
+                                {
+                                    this.props.state.skillset.map((item)=>{
+                                        return(
+                                            <option value={item._id}>
+                                                {item._id}
+                                            </option>
+                                        );
+                                    })
+                                }
+                            </select>
+                        </FormGroup>
+                        <FormGroup>
+                            <div>
+                            <textarea className="form-control" id="txtIssueContent" placeholder="Enter Issue Content" onChange={((event)=>{
+                                this.issueData.issueContent=event.target.value;
+                                // this.setState({
+                                //     ...this.state.raiseIssue,
+                                //     issuecontent : event.target.value
+                                // });
+                            })}/>
+                            </div>
+                        </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <div>
+                            <Button className="btn btn-info" onClick={(()=>{this.submitIssue()})}>
+                                Submit Issue
+                            </Button>
+                        </div>
+                    </ModalFooter>
+                </Modal>
             )
         }
         else {
@@ -183,10 +224,7 @@ class Issues extends Component {
             <div className="container-fluid">
                 <div>
                     <button className="btn btn-primary" value="Raise Issue" onClick={(()=>{
-                        this.setState({
-                            ...this.state,
-                            showRaiseIssueTab:true
-                        });
+                        this.toggle()
                     })}>
                         Raise Issue
                     </button>
@@ -195,33 +233,44 @@ class Issues extends Component {
 
                     <hr/>
                     <div className="row">
-                        <div className="row">
-                            <h4 > My Open Issues </h4>
-                            <hr/>
-                            {
-                                this.state.openIssues.map((issue)=>{
-                                    return(
-                                        <ShowOpenIssues
-                                            key={issue._id}
-                                            issue={issue}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className="col-sm-12 col-md-12 col-lg-12">
+                            <Card >
+                                <CardHeader>
+                                    <h4 > My Open Issues </h4>
+                                </CardHeader>
+                                <CardBody>
+                                    {
+                                        this.props.state.userIssues.openIssues.map((issue)=>{
+                                            return(
+                                                <ShowOpenIssues
+                                                    key={issue._id}
+                                                    issue={issue}
+                                                    resolveIssue = {this.resolveIssue}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </CardBody>
+                            </Card>
                         </div>
-                        <div className="row">
-                            <h4> Previously Resolved Issues </h4>
-                            <hr/>
-                            {
-                                this.state.closedIssues.map((issue)=>{
-                                    return(
-                                        <ShowClosedIssues
-                                            key={issue._id}
-                                            issue={issue}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className="col-sm-12 col-md-12 col-lg-12">
+                            <Card>
+                                <CardHeader>
+                                    <h4> Previously Resolved Issues </h4>
+                                </CardHeader>
+                                <CardBody>
+                                    {
+                                        this.props.state.userIssues.resolvedIssues.map((issue)=>{
+                                            return(
+                                                <ShowClosedIssues
+                                                    key={issue._id}
+                                                    issue={issue}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </div>
@@ -230,4 +279,21 @@ class Issues extends Component {
     }
 }
 
-export default Issues;
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setOpenIssues : (data) => dispatch(setOpenIssues(data)),
+        setResolvedIssues: (data) => dispatch(setResolvedIssues(data)),
+        setSkills: (data) => dispatch(setSkills(data)),
+        addOpenIssues: (data) => dispatch(addOpenIssues(data)),
+        addResolvedIssues: (data) => dispatch(addResolvedIssues(data))
+    };
+}
+
+function mapStateToProps(state) {
+    console.log(state);
+    return {state : state};
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Issues));

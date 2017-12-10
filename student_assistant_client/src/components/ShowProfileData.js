@@ -43,7 +43,7 @@ render(){
                             <input
                                 type="text"
                                 className="form-control"
-                                id="txtoverview"
+                                id="firstname"
                                 value={item.firstname}
                             />
                         </div>
@@ -58,7 +58,7 @@ render(){
                             <input
                                 type="text"
                                 className="form-control"
-                                id="txtwork"
+                                id="lastname"
                                 value={item.lastname}
                             />
                         </div>
@@ -73,7 +73,7 @@ render(){
                             <input
                                 type="text"
                                 className="form-control"
-                                id="txteducation"
+                                id="username"
                                 value={item.username}
                             />
                         </div>
@@ -84,26 +84,27 @@ render(){
                         <div className="col-sm-3 col-md-3 col-lg-3">
                             <label className="form-horizontal form-control-static">Gender:</label>
                         </div>
-                        <div className="col-sm-8 col-md-8 col-lg-8">
-                            <select className="dropdown" value={item.gender}>
-                                <option>Select Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                        </div>
+                            <div className="col-sm-5 col-md-5 col-lg-5">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="gender"
+                                    value={item.gender}
+                                />
+                            </div>
                     </div>
                 </div>
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">DOB:</label>
+                            <label className="form-horizontal form-control-static">Student ID:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
-                                id="txtlifeevents"
-                                value={item.dob}
+                                id="studentid"
+                                value={item.studentid}
                             />
                         </div>
                     </div>
@@ -111,18 +112,19 @@ render(){
                 <div className="form-group">
                     <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                         <div className="col-sm-3 col-md-3 col-lg-3">
-                            <label className="form-horizontal form-control-static">Skillset:</label>
+                            <label className="form-horizontal form-control-static">DateOfBirth:</label>
                         </div>
                         <div className="col-sm-5 col-md-5 col-lg-5">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="txtlifeevents"
-                                value={item.skillset}
+                                value={item.dateofbirth}
                             />
                         </div>
                     </div>
                 </div>
+
             </form>
         );
     }

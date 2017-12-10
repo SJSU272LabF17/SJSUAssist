@@ -1,13 +1,13 @@
 var MongoClient = require('mongodb').MongoClient;
 var db;
 var connected = false;
-
+let url1= "mongodb://student:student@studentassistantsystem-shard-00-00-5nj8l.mongodb.net:27017,studentassistantsystem-shard-00-01-5nj8l.mongodb.net:27017,studentassistantsystem-shard-00-02-5nj8l.mongodb.net:27017/student_assist?ssl=true&replicaSet=studentassistantsystem-shard-0&authSource=admin"
 
 /**
  * Connects to the MongoDB Database with the provided URL
  */
 exports.connect = function(url, callback){
-    MongoClient.connect(url, function(err, _db){
+    MongoClient.connect(url1, function(err, _db){
         if (err) { throw new Error('Could not connect: '+err); }
         db = _db;
         connected = true;

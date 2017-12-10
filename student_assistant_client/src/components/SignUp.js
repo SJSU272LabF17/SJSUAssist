@@ -148,7 +148,15 @@ class SignUp extends Component{
                                     </div>
                                    <div className="form-group">
                                         <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-                                            <select className="dropdown">
+                                            <select className="dropdown"
+                                                    name="gender"
+                                                    id="gender"
+                                                    onChange={(event) => {
+                                                        this.setState({
+                                                            ...this.state,
+                                                            gender: event.target.value
+                                                        })
+                                                    }} >
                                             <option>Select Gender</option>
                                             <option>Male</option>
                                             <option>Female</option>

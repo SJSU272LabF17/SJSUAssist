@@ -23,11 +23,11 @@ class ShowClosedIssues extends Component{
             <tbody>
             <tr>
                 <td>Topic: </td>
-                <td>{issue.topic} </td>
+                <td>{issue.skillId} </td>
             </tr>
             <tr>
                 <td>Content: </td>
-                <td>{issue.issuecontent}</td>
+                <td>{issue.issueContent}</td>
             </tr>
             </tbody>
         );
