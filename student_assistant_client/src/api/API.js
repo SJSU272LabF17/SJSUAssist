@@ -222,10 +222,15 @@ export const getActivityData = () =>
         return error;
     });
 
-export const resolveIssue= () =>
+export const resolveUserIssue = (payload) =>
     fetch (`${api}/users/resolveIssue`,
         {
             method: 'POST',
+            headers: {
+                ...headers,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload),
             credentials: 'include'
         }).then(res => {
         return res;
@@ -233,4 +238,3 @@ export const resolveIssue= () =>
         console.log("Error: " + error);
         return error;
     });
-

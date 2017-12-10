@@ -44,12 +44,25 @@ const addOpenIssues = (state, action) => {
 const addResolvedIssues = (state, action) => {
     console.log(state);
     console.log(action);
+    let index = 0;
+    console.log(state.openIssues.indexOf(action.data));
+    state.openIssues.splice(state.openIssues.indexOf(action.data), 1);
+    state.resolvedIssues.push(action.data);
+    console.log(state);
+/*    state.userIssues.forEach((issue)=>{
+        if(issue.issueId = action.data.issueId){
+            return index;
+        }
+        index++;
+    });*/
     // state.resolvedIssues.push(action.data);
     // console.log("Resolved Issues After Adding: ");
     // console.log(state);
     return {
         ...state,
-        resolvedIssues : action.data
+        [action.openIssues]: state.openIssues,
+        [action.resolvedIssues]: state.resolvedIssues
+        // resolvedIssues : action.data
     }
 };
 

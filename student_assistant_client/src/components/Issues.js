@@ -141,13 +141,13 @@ class Issues extends Component {
     });
 
     resolveIssue = ((issue)=>{
-       API.resolveIssue().then((response)=>{
+       API.resolveUserIssue(issue).then((response)=>{
           console.log(response.status);
           if(response.status===201){
               this.props.addResolvedIssues(issue);
           }
           else {
-              console.log("Error");
+              // console.log("Error");
           }
        });
     });
@@ -245,6 +245,7 @@ class Issues extends Component {
                                                 <ShowOpenIssues
                                                     key={issue._id}
                                                     issue={issue}
+                                                    resolveIssue = {this.resolveIssue}
                                                 />
                                             )
                                         })
