@@ -86,7 +86,6 @@ class User extends Component {
 
 
             <tr>
-                <td>{issues.issues._id}</td>
                 <td>{issues.issues.topic}</td>
                 <td>{issues.issues.issuecontent}</td>
                 <td>
@@ -138,7 +137,6 @@ class User extends Component {
                  <table class="table table-striped-jay">
                      <thead>
                      <tr>
-                     <th>#</th>
                      <th>Topic</th>
                      <th>issuecontent</th>
                      </tr>

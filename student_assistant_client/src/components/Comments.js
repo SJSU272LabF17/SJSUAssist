@@ -18,9 +18,21 @@ class Comments extends Component{
         .then((response)=>{
 
             console.log(response);
-            this.setState({
-                comments:response.response[0].comments
-            });
+            if(response.response.length ===0 )
+            {
+                var temp=[];
+                this.setState({
+                    comments:temp
+                });
+
+            }
+            else {
+                this.setState({
+                    comments:response.response[0].comments
+                });
+
+            }
+
 
         });
 

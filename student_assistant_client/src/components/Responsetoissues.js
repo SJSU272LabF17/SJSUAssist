@@ -10,15 +10,29 @@ class Responsetoissues extends Component{
     {
         return(
         <div>
-            <h2 class="table table-striped-jay">
+            <div class="table table-striped-jay">
+                <h2>
+                Response to the issue
+                </h2>
+                <br/>
+                <br/>
+
+                <h4>
+                Issue id#
+                </h4>
                 {this.props.resolveissue.issues._id}
                 <br/>
+                <h4>
+                    Issue Topic:
+                </h4>
                 {this.props.resolveissue.issues.topic}
                 <br/>
+                <h4>
+                    Issue Content:
+                </h4>
                 {this.props.resolveissue.issues.issuecontent}
-                <br/>
-                {this.props.resolveissue.issues.isopen}
-            </h2>
+
+            </div>
             <button type="button"
                     class="btn btn-primary btn-lg"
                     onClick = {() => {
