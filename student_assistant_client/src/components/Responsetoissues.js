@@ -42,10 +42,11 @@ class Responsetoissues extends Component{
                         then((response)=>{
 
                             console.log(response);
-                            showAlert("Issue Resolved","info",this);
+
 
                         });
                         //
+                        showAlert("Issue Resolved","info",this);
                         this.props.history.push("/")
                     }
                     }

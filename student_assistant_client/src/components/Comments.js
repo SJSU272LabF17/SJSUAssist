@@ -4,7 +4,8 @@ import {Route,withRouter,Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {updatecomment} from '../action/UpdateComment'
 import chat from '../images/chat.svg'
-
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class Comments extends Component{
 
@@ -33,7 +34,7 @@ class Comments extends Component{
                 });
 
                 this.props.updatecomment(response.response[0].comments);
-
+                
             }
 
 
@@ -91,9 +92,10 @@ class Comments extends Component{
         var styles = {
             background:'white'
         };
-
+        <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
         return(
             <div>
+
             <div style={styles}>
                 <h2>
                     Comments
@@ -139,6 +141,7 @@ class Comments extends Component{
                                             this.setState({
                                                 newcomment: ''
                                             });
+                                            showAlert("Added comment successfully!","info",this);
 
                                         });
 
