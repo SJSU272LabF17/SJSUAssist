@@ -5,8 +5,8 @@ import * as API from '../api/API';
 import Login from './Login';
 import Message from './Message';
 import User from './User';
-import dropboxIcon from '../images/dropbox.png'
-
+import {setOpenIssues, setResolvedIssues} from "../action/userissues";
+import {connect} from 'react-redux';
 import Responsetoissues from './Responsetoissues'
 import Comments from './Comments'
 
@@ -106,6 +106,8 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "User Logged out"
                     });
+                    this.props.setOpenIssues([]);
+                    this.props.setResolvedIssues([]);
                     this.handlePageChange("/");
                 }
                 else if(status===401){
@@ -222,4 +224,16 @@ class MainPage extends Component {
     }
 }
 
-export default withRouter(MainPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        setOpenIssues : (data) => dispatch(setOpenIssues(data)),
+        setResolvedIssues: (data) => dispatch(setResolvedIssues(data)),
+    };
+}
+
+function mapStateToProps(state) {
+    console.log(state);
+    return {state : state};
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainPage));
