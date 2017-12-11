@@ -61,7 +61,7 @@ router.post('/resolveissue', function (req, res, next) {
     // });
 
     // Email Code- Jay Desai
-
+    // adding node mailer code
     console.log("Inside the mail sending folder");
     // call kafka function here
     // pass req.query.val to kafka

@@ -116,7 +116,6 @@ class Profile extends Component{
         API.getprofile().then((response)=>{
             if(response.status===201){
                 this.getUserSkillSet();
-                console.log("Inside getprofile CWM");
                 response.json().then((data)=>{
                     console.log(data);
                     this.setState({
@@ -231,7 +230,7 @@ class Profile extends Component{
         return(
             <div className="container-fluid">
                 <div>
-                    <Card>
+                    <Card className="col-sm-12 col-md-12 col-lg-12">
                         <form className="form-horizontal">
                             <div className="form-group">
                                 <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
@@ -335,9 +334,19 @@ class Profile extends Component{
                                     </div>
                                 </div>
                             </div>
-                            {
-                                this.showSkillSet()
-                            }
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">Skill Sets:</label>
+                                    </div>
+                                </div>
+                                <div className="col-sm-5 col-md-5 col-lg-5">
+                                    {
+                                        this.showSkillSet()
+                                    }
+                                </div>
+                            </div>
+
                             {
                                 this.showAddSkill()
                             }
