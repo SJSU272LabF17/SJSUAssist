@@ -121,6 +121,15 @@ font-family: Helvetica;
 
    }
 
+.panel-login{
+  font-family: Helvetica;
+  text-align: center;
+  color: darkblue;
+  margin-left: 3px;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
 .heading{
   text-align: center;
 }
@@ -129,6 +138,14 @@ font-family: Helvetica;
   text-align: center;
   color: darkgray;
   font-family: Helvetica;
+}
+
+.signup-font{
+  text-align: center;
+  margin-left: 0px;
+  color: black;
+  font-family: Helvetica;
+  margin-top: 8px;
 }
 
 /*Below is for Profile page*/

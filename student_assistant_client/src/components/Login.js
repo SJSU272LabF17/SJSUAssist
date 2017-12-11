@@ -29,8 +29,8 @@ class Login extends Component{
                     <div className="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-sm-10 col-md-10 col-lg-10 col-xs-10">
                         <div className="panel panel-primary">
                             <div className="panel-body">
-                                <div className="panel-heading">
-                                   <Link to={'/home/signup'} component={SignUp}>Sign Up</Link>
+                                <div className="panel-login col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                Student Login
                                 </div>
                                 <form className="form-horizontal">
                                     <div className="form-group">
@@ -74,6 +74,7 @@ class Login extends Component{
                                             <input type="button" id="login" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
                                                     onClick={()=>this.props.handleLogin(this.state)} value="Login"/>
                                         </div>
+                                    <div className="signup-font">   Not a User? <Link to={'/home/signup'} id="link" component={SignUp}>Sign Up</Link> </div>
                                     </div>
                                 </form>
                             </div>
