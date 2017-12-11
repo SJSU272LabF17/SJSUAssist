@@ -172,7 +172,7 @@ class Profile extends Component{
         if(this.state.modal){
             return(
                 <Modal isOpen={this.state.modal} toggle={this.modal} className={this.props.className || "admin-modal"}>
-                    <ModalHeader toggle={this.toggle}>Add Issue</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add Skill</ModalHeader>
                     <ModalBody>
                         <FormGroup>
                             Skills:
@@ -315,7 +315,7 @@ class Profile extends Component{
                             <div className="form-group">
                                 <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                     <div className="col-sm-3 col-md-3 col-lg-3">
-                                        <label className="form-horizontal form-control-static">DOB:</label>
+                                        <label className="form-horizontal form-control-static">DateOfBirth:</label>
                                     </div>
                                     <div className="col-sm-5 col-md-5 col-lg-5">
                                         <input
@@ -340,7 +340,7 @@ class Profile extends Component{
                                         <label className="form-horizontal form-control-static">Skill Sets:</label>
                                     </div>
                                 </div>
-                                <div className="col-sm-5 col-md-5 col-lg-5">
+                                <div className="profile col-sm-5 col-md-5 col-lg-5">
                                     {
                                         this.showSkillSet()
                                     }
