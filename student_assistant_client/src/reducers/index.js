@@ -8,7 +8,6 @@ import UpdateComment from './UpdateComment- Reducer'
 
 import skillset from './setskills_reducer';
 import handleUserIssues from './userissues_reducer';
-import Comment from './comment-reducer'
 
 const allReducers = combineReducers({
 
