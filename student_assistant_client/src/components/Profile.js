@@ -27,6 +27,8 @@ import {
 import {connect} from 'react-redux';
 import {setSkills} from '../action/setskills';
 import skillset from "../reducers/setskills_reducer";
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class Profile extends Component{
 
@@ -72,12 +74,15 @@ class Profile extends Component{
             if(response.status===201){
                 console.log("Added successfully");
                 this.props.handlePageChange("/user/profile");
+                showAlert("Successfully Updated Your Changes!","info",this);
             }
             else  if(response.status===203){
                 this.props.handlePageChange("/home/login");
+                showAlert("Something Went Wrong","error",this);
             }
             else  if(response.status===301){
                 console.log("Error while adding profile data")
+                showAlert("Unable to Update Changes","error",this);
             }
         });
     });
@@ -218,9 +223,11 @@ class Profile extends Component{
             if(response.status===201){
                 this.getProfile();
                 this.toggle();
+                showAlert("Skill Added Successfully!","info",this);
             }
             else {
                 console.log("Error");
+                showAlert("Something Went Wrong","error",this);
             }
         });
     });
@@ -229,6 +236,7 @@ class Profile extends Component{
 
         return(
             <div className="container-fluid">
+                <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
                 <div>
                     <div className="background">
                         <form className="form-horizontal">

@@ -34,7 +34,7 @@ class Comments extends Component{
                 });
 
                 this.props.updatecomment(response.response[0].comments);
-                
+
             }
 
 
