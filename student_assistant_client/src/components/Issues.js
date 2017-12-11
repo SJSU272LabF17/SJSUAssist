@@ -95,6 +95,13 @@ class Issues extends Component {
                     })
                 });
             }
+            else if(response.status===204){
+                this.props.setOpenIssues([]);
+                this.props.setResolvedIssues([]);
+            }
+            else {
+                console.log("Error");
+            }
         });
     });
 

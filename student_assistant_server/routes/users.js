@@ -230,6 +230,8 @@ router.post('/getUserIssues', function (req, res, next) {
     try {
         if(req.session.username!==null || req.session.username!==undefined) {
             let username = req.session.username;
+
+            console.log("username"+username);
             mongo.connect(mongoURL, function () {
 
                 let users = mongo.collection("users");
