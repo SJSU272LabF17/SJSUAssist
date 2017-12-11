@@ -18,16 +18,21 @@ class ShowOpenIssues extends Component{
             <tr>
                 <td>Topic: </td>
                 <td>{issue.skillId} </td>
+                <td>
+                <button className="btn btn-primary btn-sm" onClick={(()=>{this.props.resolveIssue(issue)})}>Mark Resolved</button></td>
+                <td>
+                    <button className="btn btn-primary btn-sm" onClick={(()=>{this.props.viewIssue(issue)})}>View</button></td>
             </tr>
             <tr>
                 <td>Content: </td>
                 <td>{issue.issueContent}</td>
+
             </tr>
             <tr>
-                <button className="btn btn-primary" onClick={(()=>{this.props.resolveIssue(issue)})}>Resolved</button>
+
             </tr>
             <tr>
-                <button className="btn btn-primary" onClick={(()=>{this.props.viewIssue(issue)})}>View</button>
+
             </tr>
             </tbody>
         );

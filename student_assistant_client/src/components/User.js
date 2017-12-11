@@ -9,7 +9,7 @@ import home from '../images/homeee.svg'
 import id from '../images/user2.svg'
 import disc from '../images/id-card.svg'
 import activity from '../images/notebook.svg'
-import logout from '../images/logout.svg'
+import logout from '../images/logout3.svg'
 
 
 
