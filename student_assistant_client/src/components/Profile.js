@@ -341,7 +341,9 @@ class Profile extends Component{
                             {
                                 this.showAddSkill()
                             }
-                            <input type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
+                            <div className="form-group">
+                                <input className="btn btn-primary" type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
+                            </div>
                             <div className="form-group">
                                 <input type="button" className="btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
                             </div>
