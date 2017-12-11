@@ -29,7 +29,9 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+ //   origin: 'http://localhost:3000',
+    // Below is the IP of EC2 instance
+    origin: 'http://13.56.16.66:3000',
     credentials: true
 };
 app.use(cors(corsOptions));

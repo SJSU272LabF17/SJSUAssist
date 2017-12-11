@@ -1,4 +1,6 @@
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:3001';
+//const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:3001';
+// Replaced localhost with EC2 instance IP
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://13.56.16.66:3001';
 
 const headers = {
     'Accept': 'application/json'
