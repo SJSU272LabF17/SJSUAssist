@@ -151,9 +151,28 @@ background-color: #98F5FF;
   width:100%;
 }
 
-.button{
-  width: 10%;
+.button-right{
+  width: 20%;
   margin: 10px;
+}
+
+.button-left{
+  width: 20%;
+  margin: 10px;
+}
+
+.format{
+  width: 100%;
+}
+
+.input-div{
+  width : 40%;
+  margin: 10px;
+}
+
+.background{
+  background: white;
+  width: 60%;
 }
 
 
