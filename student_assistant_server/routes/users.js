@@ -108,7 +108,7 @@ router.post('/changeProfile', function (req, res, next) {
     }
 });
 
-router.get('/getprofile', function (req, res, next) {
+router.post('/getprofile', function (req, res, next) {
     console.log("Inside get profile");
     try {
         console.log("In fetching profile");
