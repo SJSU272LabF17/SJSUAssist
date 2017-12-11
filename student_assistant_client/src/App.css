@@ -47,6 +47,14 @@
   cursor: pointer;
 }
 
+.move {
+  margin-top: 69px;
+  margin-left : 10px;
+
+}
+#button{
+  margin-right: 100px;
+}
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
   background-color: #3e8e41;
