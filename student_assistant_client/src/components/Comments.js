@@ -44,7 +44,8 @@ class Comments extends Component{
     display()
     {
         var styles = {
-            'border-bottom': '1px solid lightblue'
+            'border-bottom': '1px solid lightblue',
+            'background-color': '#f2f2f2'
         };
         var array=this.state.comments;
         console.log(array);
@@ -56,7 +57,8 @@ class Comments extends Component{
                         <div  className="row">
                             <div className="col-lg-7 col-md-7">
                                 <h5>
-                                UserID
+
+                                    {comments.userid}
                                 </h5>
                             </div>
                             <div className="col-lg-2 col-md-2">
@@ -69,7 +71,14 @@ class Comments extends Component{
                         <div  className="row">
                         </div>
                         <div  className="row">
-                        {comments.content}
+                            <div className="col-lg-4 col-md-4">
+                            </div>
+                            <div className="col-lg-5 col-md-5">
+                                {comments.content}
+                            </div>
+                            <div className="col-lg-3 col-md-3">
+                            </div>
+
                         </div>
 
                     </div>
@@ -98,7 +107,7 @@ class Comments extends Component{
             </div>
                 <div class="form-group">
 
-                    <div className="col-lg-3 col-md-3">
+                    <div className="col-lg-5 col-md-5">
                     </div>
 
                     <div className="col-lg-6 col-md-6">
@@ -131,6 +140,31 @@ class Comments extends Component{
                                             });
 
                                         });
+
+                                    API.comments(this.props.resolveissue.issues)
+                                        .then((response)=>{
+
+                                            console.log(response);
+                                            if(response.response.length ===0 )
+                                            {
+                                                var temp=[];
+                                                this.setState({
+                                                    comments:temp
+                                                });
+                                                this.props.updatecomment(temp);
+
+                                            }
+                                            else {
+                                                this.setState({
+                                                    comments:response.response[0].comments
+                                                });
+
+                                                this.props.updatecomment(response.response[0].comments);
+
+                                            }
+
+
+                                        });
                                 }
                                 }
 
@@ -138,7 +172,7 @@ class Comments extends Component{
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-3">
+                    <div className="col-lg-1 col-md-1">
                     </div>
                 </div>
 

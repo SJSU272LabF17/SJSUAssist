@@ -172,6 +172,8 @@ router.post('/addcomments', function (req, res, next) {
                     comments: {
                         id: ObjectId(req.body.id),
                         content:req.body.newcomment
+                        ,
+                        userid:req.session.username
                     }
                 }
             },

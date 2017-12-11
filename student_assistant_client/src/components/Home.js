@@ -111,6 +111,9 @@ class User extends Component {
     }
 
     render() {
+        var styles = {
+            'background-color': '#f2f2f2'
+        };
 
         return (
 
@@ -124,13 +127,13 @@ class User extends Component {
                 </div>
 
               
-                <h2 class="table table-striped-jay">
+                <h2 class="table table-striped-jay" style={styles}>
                     Open Issues
                 </h2>
                 <br/>
                 <br/>
                 <div class="table-responsive">
-                 <table class="table table-striped-jay">
+                 <table class="table table-striped-jay" style={styles}>
                      <thead>
                      <tr>
                      <th>Topic</th>
