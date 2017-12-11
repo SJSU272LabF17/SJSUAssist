@@ -69,8 +69,6 @@ class Comments extends Component{
 
                         </div>
                         <div  className="row">
-                        </div>
-                        <div  className="row">
                             <div className="col-lg-4 col-md-4">
                             </div>
                             <div className="col-lg-5 col-md-5">

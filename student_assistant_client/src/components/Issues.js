@@ -218,7 +218,7 @@ class Issues extends Component {
             issues : {
                 _id: issue.issueId,
                 topic: issue.skillId,
-                issueContent: issue.issueContent
+                issuecontent: issue.issueContent
             }
         };
 
