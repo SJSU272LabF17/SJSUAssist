@@ -3,6 +3,7 @@ import * as API from '../api/API';
 import {Route,withRouter,Switch} from 'react-router-dom';
 import ShowProfileData from './ShowProfileData';
 import {connect} from 'react-redux';
+import {updatecomment} from '../action/UpdateComment'
 import chat from '../images/chat.svg'
 
 
@@ -18,9 +19,24 @@ class Comments extends Component{
         .then((response)=>{
 
             console.log(response);
-            this.setState({
-                comments:response.response[0].comments
-            });
+            if(response.response.length ===0 )
+            {
+                var temp=[];
+                this.setState({
+                    comments:temp
+                });
+                this.props.updatecomment(temp);
+
+            }
+            else {
+                this.setState({
+                    comments:response.response[0].comments
+                });
+
+                this.props.updatecomment(response.response[0].comments);
+
+            }
+
 
         });
 
@@ -141,5 +157,12 @@ function mapStateToProps(state) {
     return {resolveissue};
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        updatecomment : (data) => dispatch(updatecomment(data))
 
-export default withRouter(connect(mapStateToProps, null)(Comments)) ;
+    };
+}
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comments)) ;
