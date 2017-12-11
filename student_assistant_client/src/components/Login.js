@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import SignUp from "./SignUp";
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class Login extends Component{
 
@@ -22,6 +24,7 @@ class Login extends Component{
     render(){
         return(
             <div className="container-fluid">
+                <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
                 <div className="row">
                     <div className="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-sm-10 col-md-10 col-lg-10 col-xs-10">
                         <div className="panel panel-primary">

@@ -3,12 +3,13 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import SignUp from './SignUp';
 import * as API from '../api/API';
 import Login from './Login';
-import Message from './Message';
 import User from './User';
 import {setOpenIssues, setResolvedIssues} from "../action/userissues";
 import {connect} from 'react-redux';
 import Responsetoissues from './Responsetoissues'
 import Comments from './Comments'
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class MainPage extends Component {
 
@@ -74,6 +75,7 @@ class MainPage extends Component {
                         message: ("Welcome to my App " + loginData.username),
                         username: loginData.username
                     });
+                    showAlert("Login Successful","info",this);
                     sessionStorage.setItem('username',loginData.username);
                     this.handlePageChange("/user/home")
                 }
@@ -83,6 +85,7 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "username or password is invalid"
                     });
+                    showAlert("Invalid Id or Password","error",this);
                     // this.props.history.push("/login")
                 }
                 else if(status===401){
@@ -150,6 +153,7 @@ class MainPage extends Component {
     render(){
         return(
             <div>
+                <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
                 <Switch>
                     <Route exact path="/" render={() =>(
                         <div>
@@ -177,7 +181,6 @@ class MainPage extends Component {
                                                             handleSignUp={this.handleSignUp}
                                                             handlePageChange={this.handlePageChange}
                                                         />
-                                                        <Message message={this.state.message}/>
                                                     </div>
                                                 )}/>
                                                 <Route path="/home/login" render={() => (
@@ -186,7 +189,6 @@ class MainPage extends Component {
                                                             handleLogin={this.handleLogin}
                                                             handlePageChange={this.handlePageChange}
                                                         />
-                                                        <Message message={this.state.message}/>
                                                     </div>
                                                 )}/>
                                             </Switch>
