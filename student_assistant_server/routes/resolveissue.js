@@ -3,7 +3,7 @@ let router = express.Router();
 let mongo = require("./mongo");
 let mongoURL = "mongodb://localhost:27017/student_assistant";
 
-
+let ObjectId = require('mongodb').ObjectID;
 var nodemailer = require('nodemailer');
 
 router.post('/resolveissue', function (req, res, next) {
@@ -115,13 +115,13 @@ router.post('/comments', function (req, res, next) {
         console.log("inside the Comments - mongo");
 
         coll.aggregate([
-                {$match: {'comments.id':parseInt(req.body._id)}},
+                {$match: {'comments.id':ObjectId(req.body._id)}},
                 {$project:
                     {comments:{$filter:
                         {
                             input:'$comments',
                             as:'comments',
-                            cond:{$eq:['$$comments.id',parseInt(req.body._id)]}
+                            cond:{$eq:['$$comments.id',ObjectId(req.body._id)]}
                         }}
                     }}
             ],
@@ -167,10 +167,10 @@ router.post('/addcomments', function (req, res, next) {
         var coll = mongo.collection('Comments');
         console.log("inside the add Comments - mongo");
 
-        coll.update({id: parseInt(req.body.id)}, {
+        coll.update({id: ObjectId(req.body.id)}, {
                 $push: {
                     comments: {
-                        id: parseInt(req.body.id),
+                        id: ObjectId(req.body.id),
                         content:req.body.newcomment
                     }
                 }

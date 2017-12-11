@@ -207,7 +207,26 @@ router.post('/addissue', function (req, res, next) {
                         throw err;
                     }
                     if(result.result.nModified===1){
-                        res.status(201).send(data);
+                        // Adding Comment collection
+                        let comments = mongo.collection("Comments");
+                        comments.insert({
+                            id:ObjectId(data.issueId),
+                            comments:[]
+                        }, function (err, result1) {
+
+                            if(result1)
+                            {
+                                res.status(201).send(data);
+                            }
+                            else
+                            {
+                                res.status(201).send(data);
+                            }
+
+                        });
+
+
+
                     }
                     else {
                         res.status(301).send({"message":"Failed to add Issue"});
