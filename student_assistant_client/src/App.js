@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom';
 import MainPage from './components/MainPage';
+import './CSS/jay.css';
+// import './CSS/collapse.css';
 
 class App extends Component {
   render() {
