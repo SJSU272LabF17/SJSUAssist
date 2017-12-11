@@ -97,9 +97,13 @@ height: 80%;
 
  }
 
+/*Below is for Profile page*/
 .profile{
   text-align: left;
+}
 
+.btn-format{
+  text-align: left;
 }
 
 #link {
@@ -125,10 +129,15 @@ background-color: #98F5FF;
 
 
 }
-#button {
-
-  
+.button-div {
+  width:100%;
 }
+
+.button{
+  width: 10%;
+  margin: 10px;
+}
+
 
 #inputfirstname{
   

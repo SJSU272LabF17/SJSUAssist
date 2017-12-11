@@ -338,6 +338,7 @@ class Profile extends Component{
                                 <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">Skill Sets:</label>
+
                                     </div>
                                 </div>
                                 <div className="profile col-sm-5 col-md-5 col-lg-5">
@@ -350,16 +351,15 @@ class Profile extends Component{
                             {
                                 this.showAddSkill()
                             }
-                            <div className="form-group">
-                                <input className="btn btn-primary" type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
-                            </div>
-                            <div className="form-group">
-                                <input type="button" className="btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
+                            <div className="button-div btn-toolbar">
+                                <input className="button btn btn-primary" type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
+
+                                <input type="button" className="button btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
                             </div>
                         </form>
+
                     </Card>
                 </div>
-
 
 
                 {/*<label>Interest</label><hr/>*/}
@@ -369,7 +369,8 @@ class Profile extends Component{
                 {/*<input type="checkbox" value="Reading" name="interest"/>Reading*/}
                 {/*</div><br/>*/}
             </div>
-        );
+
+    );
     }
 }
 
