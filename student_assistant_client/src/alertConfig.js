@@ -1,5 +1,5 @@
-import alert_icon from "./img/alert-icon-red-11.png";
-import info_icon from "./img/info-icon.png";
+import alert_icon from "./images/alert-icon-red-11.png";
+import info_icon from "./images/info-icon.png";
 import React from 'react';
 
 export let alertOptions = {

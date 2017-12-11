@@ -47,6 +47,23 @@
   cursor: pointer;
 }
 
+.move {
+  margin-top: 69px;
+  margin-left : 10px;
+
+}
+
+#login {
+
+  margin-right:110px;
+}
+.row {
+
+  margin-top:50px;
+}
+#button{
+  margin-right: 100px;
+}
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
   background-color: #3e8e41;
@@ -110,6 +127,7 @@ height: 80%;
 
   font-size: 22px;
   font-family: "Times New Roman", Times, serif;
+  margin-right: 98px;
   font-color:black;
   
 }

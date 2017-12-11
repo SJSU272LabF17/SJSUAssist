@@ -122,7 +122,6 @@ class User extends Component {
                     <div class="container">
                         <h2 class="display-3">Hello!</h2>
                         <p>Welcome to the Student Assistance Portal</p>
-                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Profile</a></p>
                     </div>
                 </div>
 
