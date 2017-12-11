@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import * as API from '../api/API';
 import {Route,withRouter,Switch} from 'react-router-dom';
-import ShowProfileData from './ShowProfileData';
 import {connect} from 'react-redux';
 
 class Responsetoissues extends Component{

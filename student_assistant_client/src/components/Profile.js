@@ -150,13 +150,22 @@ class Profile extends Component{
 
     showSkillSet = (()=>{
         return(
-            this.state.skillset.map((skill)=>{
-                return(
-                    <span>
-                        {skill._id}
-                    </span>
-                )
-            })
+            <div className="form-group">
+                <list class="list-inline">
+                    <ul>
+                        {
+                            this.state.skillset.map((skill)=>{
+                                return(
+
+                                    <li>
+                                        {skill._id}
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </list>
+            </div>
         )
     });
 
