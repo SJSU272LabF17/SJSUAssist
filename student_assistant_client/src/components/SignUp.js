@@ -28,11 +28,11 @@ class SignUp extends Component{
                     <div className="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-sm-10 col-md-10 col-lg-10 col-xs-10">
                         <div className="panel panel-primary">
                             <div className="panel-body">
-                                <div className="panel-heading">
+                                <div className="panel-heading col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                     {/*<input type="button" onClick={()=>this.props.handlePageChange("/login")}*/}
                                            {/*className="btn-link" value="Login"/>*/}
                                     {/*<Link to={'/prelogin/login'} component={Login}>Login</Link>*/}
-                                    <Link to={'/home/login'} id="link" component={Login}>Student SignUp</Link> 
+                                    Student Signup
                                 </div>
                             
                                 <form className="form-horizontal" id="formb">
@@ -186,7 +186,10 @@ class SignUp extends Component{
                                         <div className="col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
                                             <input type="button" id="button" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
                                                    onClick={()=>this.props.handleSignUp(this.state)} value="Sign Up"/>
+
+
                                         </div>
+                           <div className="login-font"> Already a member  <Link to={'/home/login'} id="link" component={Login}>Login</Link></div>
                                     </div>
 
                                 </form>

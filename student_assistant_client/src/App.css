@@ -111,8 +111,25 @@ height: 80%;
   background-color: #98F5FF;
 }
 .panel-heading {
+font-family: Helvetica;
+  text-align: center;
+  color: darkblue;
+  margin-left: 3px;
+  font-size: 25px;
+  margin-bottom: 5px;
 
- }
+
+   }
+
+.heading{
+  text-align: center;
+}
+
+.login-font{
+  text-align: center;
+  color: darkgray;
+  font-family: Helvetica;
+}
 
 /*Below is for Profile page*/
 .profile{
