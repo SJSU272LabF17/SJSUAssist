@@ -26,6 +26,9 @@ class ShowOpenIssues extends Component{
             <tr>
                 <button className="btn btn-primary" onClick={(()=>{this.props.resolveIssue(issue)})}>Resolved</button>
             </tr>
+            <tr>
+                <button className="btn btn-primary" onClick={(()=>{this.props.viewIssue(issue)})}>View</button>
+            </tr>
             </tbody>
         );
     }

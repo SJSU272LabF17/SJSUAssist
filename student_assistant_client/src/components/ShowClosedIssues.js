@@ -29,6 +29,9 @@ class ShowClosedIssues extends Component{
                 <td>Content: </td>
                 <td>{issue.issueContent}</td>
             </tr>
+            <tr>
+                <button className="btn btn-primary" onClick={(()=>{this.props.viewIssue(issue)})}>View</button>
+            </tr>
             </tbody>
         );
     }
