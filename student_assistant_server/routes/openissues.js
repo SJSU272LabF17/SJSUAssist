@@ -21,11 +21,14 @@ router.post('/currentissuelist', function (req, res, next) {
 
         coll.findOne({"_id":req.session.username},function (err, user) {
 
-            console.log("user.skillset:"+user.skillset);
-            console.log("user:"+user);
+            if (user) {
+
+
+            console.log("user.skillset:" + user.skillset[0]._id);
+            console.log("user:" + user);
 
             coll.aggregate([
-                {$match: {'issues_raised.topic': user.skillset}},
+                {$match: {'issues_raised.topic': user.skillset[0]._id}},
                 {
                     $project:
                         {
@@ -34,7 +37,7 @@ router.post('/currentissuelist', function (req, res, next) {
                                     {
                                         input: '$issues_raised',
                                         as: 'issues_raised',
-                                        cond: {$eq: ['$$issues_raised.topic', user.skillset]}
+                                        cond: {$eq: ['$$issues_raised.topic', user.skillset[0]._id]}
                                     }
                             }
                         }
@@ -47,11 +50,9 @@ router.post('/currentissuelist', function (req, res, next) {
                     console.log(user);
 
                     // Loop for getting all issue raised in temp array
-                    for(var i=0; i<user.length;i++)
-                    {
+                    for (var i = 0; i < user.length; i++) {
                         //issue_raised_array.push(user[i].issues_raised);
-                        for(var j=0; j<user[i].issues_raised.length;j++)
-                        {
+                        for (var j = 0; j < user[i].issues_raised.length; j++) {
                             issue_raised_array_final.push(user[i].issues_raised[j]);
                         }
                     }
@@ -60,9 +61,14 @@ router.post('/currentissuelist', function (req, res, next) {
                     res.status(200).send({issue_raised_array_final});
                 }
                 else {
-                    res.status(400).send({"message":"Failed"});
+                    res.status(400).send({"message": "Failed"});
                 }
             });
+        }
+        else
+            {
+                res.status(400).send({"message": "Failed"});
+            }
 
         });
 
