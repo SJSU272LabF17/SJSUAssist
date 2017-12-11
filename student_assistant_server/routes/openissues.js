@@ -21,7 +21,7 @@ router.post('/currentissuelist', function (req, res, next) {
 
         coll.findOne({"_id":req.session.username},function (err, user) {
 
-            if (user) {
+            if (user.skillset.length>0) {
 
 
             console.log("user.skillset:" + user.skillset[0]._id);
@@ -61,13 +61,15 @@ router.post('/currentissuelist', function (req, res, next) {
                     res.status(200).send({issue_raised_array_final});
                 }
                 else {
-                    res.status(400).send({"message": "Failed"});
+                    issue_raised_array_final=[];
+                    res.status(400).send({issue_raised_array_final});
                 }
             });
         }
         else
             {
-                res.status(400).send({"message": "Failed"});
+                issue_raised_array_final=[];
+                res.status(400).send({issue_raised_array_final});
             }
 
         });
