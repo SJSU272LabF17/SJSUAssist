@@ -72,54 +72,24 @@ class User extends Component {
             <div className="container-fluid">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                        <div className="row" height="50">
-
-                            <div align="right">
-                                {/*<div className="dropdown">*/}
-                                    {/*<button onClick={(()=> {document.getElementById("userDropdown").classList.toggle("show");})}*/}
-                                            {/*className="dropbtn" >*/}
-                                        {/*{this.props.username}*/}
-                                    {/*</button>*/}
-                                    {/*<div id="userDropdown" className="dropdown-content">*/}
-                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/profile")})}>Profile</a>*/}
-                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/activity")})}>*/}
-                                            {/*Activity*/}
-                                        {/*</a>*/}
-                                        {/*<a className="btn btn-link" onClick={(()=>{this.props.handleLogout()})}>*/}
-                                            {/*Logout*/}
-                                        {/*</a>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
+                        <div className="row" height="50" align="right">
+                            <div  align="left" style={{marginLeft:"70%"}}>
                                 <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/profile")})}>
-                                    <img src={id} width="50" height="60" alt="Home" align="left"/>
+                                    <img src={id} width="50" height="60" alt="Home" align="right"/>
                                 </a>
-
                                 <a className="btn btn-link" onClick={(()=>{this.props.handlePageChange("/user/activity")})}>
-                                    <img src={activity} width="50" height="37" alt="Home" align="left"/>
+                                    <img src={activity} width="50" height="37" alt="Home" align="right"/>
                                 </a>
 
                                 <a className="btn btn-link" onClick={(()=>{this.props.handleLogout()})}>
-                                    <img src={logout} width="50" height="37" alt="Home" align="left"/>
+                                    <img src={logout} width="50" height="37" alt="Home" align="right"/>
                                 </a>
 
                             </div>
                         </div>
                         <br/>
                         <div className="row" >
-
                             <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1" align="left">
-                                {/*<div className="container-fluid " >*/}
-                                    {/*<div className="btn-group-vertical">*/}
-                                        {/*<div className="row">*/}
-                                            {/*<button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/home")})}>Home</button>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="row">*/}
-                                            {/*<button className="btn-link" onClick={(()=>{this.props.handlePageChange("/user/issues")})}>Issues</button>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
                                 <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                                     <ul class="nav nav-pills flex-column">
                                         <li class="nav-item">
