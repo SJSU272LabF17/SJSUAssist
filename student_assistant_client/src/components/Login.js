@@ -27,7 +27,7 @@ class Login extends Component{
                         <div className="panel panel-primary">
                             <div className="panel-body">
                                 <div className="panel-heading">
-                                    <Link to={'/home/signup'} component={SignUp}>Sign Up</Link>
+                                   <Link to={'/home/signup'} component={SignUp}>Sign Up</Link>
                                 </div>
                                 <form className="form-horizontal">
                                     <div className="form-group">
@@ -68,7 +68,7 @@ class Login extends Component{
                                     </div>
                                     <div className="form-group">
                                         <div className="col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
-                                            <input type="button" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
+                                            <input type="button" id="login" className="btn btn-primary col-sm-8 col-md-8 col-lg-8"
                                                     onClick={()=>this.props.handleLogin(this.state)} value="Login"/>
                                         </div>
                                     </div>
