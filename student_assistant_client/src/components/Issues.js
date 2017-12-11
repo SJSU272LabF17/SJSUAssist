@@ -32,6 +32,7 @@ import {
 import {connect} from 'react-redux';
 import {setOpenIssues, setResolvedIssues, addOpenIssues, addResolvedIssues} from '../action/userissues';
 import {setSkills} from '../action/setskills';
+import {comment} from '../action/Comment';
 
 class Issues extends Component {
 
@@ -148,15 +149,15 @@ class Issues extends Component {
     });
 
     resolveIssue = ((issue)=>{
-       API.resolveUserIssue(issue).then((response)=>{
-          console.log(response.status);
-          if(response.status===201){
-              this.props.addResolvedIssues(issue);
-          }
-          else {
-              // console.log("Error");
-          }
-       });
+        API.resolveUserIssue(issue).then((response)=>{
+            console.log(response.status);
+            if(response.status===201){
+                this.props.addResolvedIssues(issue);
+            }
+            else {
+                // console.log("Error");
+            }
+        });
     });
 
     showRaiseIssueTabOnWindow = (()=>{
@@ -211,6 +212,20 @@ class Issues extends Component {
         }
     });
 
+    viewIssue = ((issue)=>{
+        console.log(issue);
+        let item = {
+            issues : {
+                _id: issue.issueId,
+                topic: issue.skillId,
+                issueContent: issue.issueContent
+            }
+        };
+
+        this.props.comment(item);
+        this.props.history.push("/comments");
+    });
+
     componentDidMount(){
     }
 
@@ -253,6 +268,7 @@ class Issues extends Component {
                                                     key={issue._id}
                                                     issue={issue}
                                                     resolveIssue = {this.resolveIssue}
+                                                    viewIssue = {this.viewIssue}
                                                 />
                                             )
                                         })
@@ -272,6 +288,7 @@ class Issues extends Component {
                                                 <ShowClosedIssues
                                                     key={issue._id}
                                                     issue={issue}
+                                                    viewIssue = {this.viewIssue}
                                                 />
                                             )
                                         })
@@ -294,7 +311,8 @@ function mapDispatchToProps(dispatch) {
         setResolvedIssues: (data) => dispatch(setResolvedIssues(data)),
         setSkills: (data) => dispatch(setSkills(data)),
         addOpenIssues: (data) => dispatch(addOpenIssues(data)),
-        addResolvedIssues: (data) => dispatch(addResolvedIssues(data))
+        addResolvedIssues: (data) => dispatch(addResolvedIssues(data)),
+        comment: (data) => dispatch(comment(data))
     };
 }
 
