@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import dropboxLogo from '../images/dropbox.png'
 import * as API from '../api/API';
 import { Route, withRouter, Switch} from 'react-router-dom';
-import Profile from './Profile';
-import Activity from './Activity';
-import EditProfile from './EditProfile';
 import {connect} from 'react-redux';
 import {getIssue} from '../action/openissuelist';
 import {resolveIssue} from '../action/Resolveissue'

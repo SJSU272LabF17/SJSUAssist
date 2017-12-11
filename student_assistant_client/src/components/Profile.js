@@ -1,35 +1,137 @@
 import React, {Component} from 'react';
 import * as API from '../api/API';
-import {Route,withRouter,Switch} from 'react-router-dom';
-import ShowProfileData from './ShowProfileData';
-import EditProfile from "./EditProfile";
+import {
+    Row,
+    Col,
+    Card,
+    CardHeader,
+    CardBody,
+    Table,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
+    FormGroup,
+    FormText,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupButton,
+    Dropdown
+} from 'reactstrap';
+import {connect} from 'react-redux';
+import {setSkills} from '../action/setskills';
+import skillset from "../reducers/setskills_reducer";
 
 class Profile extends Component{
 
+    /*
     constructor(){
         super();
         this.state = {
-            profiledata : {
-                username: "",
-                firstname: "",
-                lastname: "",
-                gender: "",
-                skillset: ""
-            },
-            recprofiledata:[]
+            overview: "",
+            work: "",
+            education: "",
+            contactinfo: "",
+            lifeevent: "",
+            music:false,
+            reading:false,
+            sports:false
+        };
+    }
+    */
+    constructor(){
+        super();
+        this.state = {
+            username: "",
+            firstname: "",
+            lastname: "",
+            gender: "",
+            skillset: [],
+            dateofbirth:"",
+            studentid:"",
+            modal : false
         };
     }
 
-    componentWillMount(){
+    toggle = (()=>{
+        this.setState({
+            ...this.state,
+            modal : !(this.state.modal)
+        })
+    });
+
+    handleSubmitProfileChange = (()=> {
+        console.log(this.state);
+        API.changeProfile(this.state).then((response) => {
+            if(response.status===201){
+                console.log("Added successfully");
+                this.props.handlePageChange("/user/profile");
+            }
+            else  if(response.status===203){
+                this.props.handlePageChange("/home/login");
+            }
+            else  if(response.status===301){
+                console.log("Error while adding profile data")
+            }
+        });
+    });
+    /* will add later */
+    // Create one API CALL INSIDE COMPONENT WILL MOUNT
+    // FROM THE RESPONSE SET THE STATE ACCORDING TO THE FETCHED VALUES
+    // EXAMOLE THIS.STATE.skillseT
+    // this.setState({
+//     username: WHATEVER VALUES GET IN RESPONSE,
+//     password:""
+// });
+
+    userdata = {
+
+    };
+
+    skillset = {
+        skillId : ""
+    };
+
+
+    getUserSkillSet = (()=>{
+        API.getSkillSets().then((response)=>{
+            if(response.status===201){
+                response.json().then((data)=>{
+                    this.props.setSkills(data);
+                });
+            }
+            else {
+                console.log("Error");
+            }
+        });
+    });
+
+    getProfile = (()=>{
         API.getprofile().then((response)=>{
             if(response.status===201){
+                this.getUserSkillSet();
+                console.log("Inside getprofile CWM");
                 response.json().then((data)=>{
                     console.log(data);
                     this.setState({
-                        ...this.state.recprofiledata,
-                        recprofiledata : data
+                        username : data._id,
+                        firstname : data.firstname,
+                        lastname : data.lastname,
+                        studentid : data.studentid,
+                        gender : data.gender,
+                        dateofbirth : data.dateofbirth,
+                        skillset: data.skillset
                     });
-                    this.props.handlePageChange("/user/profile");
+                    // console.log("username:"+username);
+                    console.log("username:"+this.state.username);
+                    this.userdata = data;
+                    console.log(this.userdata);
                 });
             }
             else  if(response.status===203){
@@ -39,43 +141,209 @@ class Profile extends Component{
                 console.log("Error while fetching profile data")
             }
         });
+    });
+
+    componentWillMount(){
+        this.getProfile();
     }
+
+
+    showSkillSet = (()=>{
+        return(
+            this.state.skillset.map((skill)=>{
+                return(
+                    <span>
+                        {skill._id}
+                    </span>
+                )
+            })
+        )
+    });
+
+    showAddSkill = (()=>{
+        if(this.state.modal){
+            return(
+                <Modal isOpen={this.state.modal} toggle={this.modal} className={this.props.className || "admin-modal"}>
+                    <ModalHeader toggle={this.toggle}>Add Issue</ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            Skills:
+                            <select id="ddlSkills"  onChange={((event)=>{
+                                this.skillset.skillId=event.target.value;
+                            })}>
+                                <option>select</option>
+                                {
+                                    this.props.state.skillset.map((item)=>{
+                                        return(
+                                            <option value={item._id}>
+                                                {item._id}
+                                            </option>
+                                        );
+                                    })
+                                }
+                            </select>
+                        </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <div>
+                            <Button className="btn btn-info" onClick={(()=>{this.addSkill()})}>
+                                Submit Issue
+                            </Button>
+                        </div>
+                    </ModalFooter>
+                </Modal>
+            )
+        }
+        else {
+
+        }
+    });
+
+    addSkill = (()=>{
+        console.log(this.skillset);
+        API.addSkill(this.skillset).then((response)=>{
+            console.log(response.status);
+            if(response.status===201){
+                this.getProfile();
+                this.toggle();
+            }
+            else {
+                console.log("Error");
+            }
+        });
+    });
 
     render(){
 
         return(
             <div className="container-fluid">
-                <Switch>
-                    <Route path="/user/profile" render={() => (
-                        <div>
+                <div>
+                    <Card>
+                        <form className="form-horizontal">
+                            <div className="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-sm-1 col-md-1 col-lg-1">
+                                <input type="button" id="btnoverviewedit" value="Cancel" className="btn btn-link"
+                                       onClick={(()=>{
+                                           this.props.handlePageChange("/user/profile");
+                                       })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="form-group">
+                                        <label className="text-justify h3">Profile</label><hr/>
+                                    </div>
 
-                            <div>
-                                {
-                                    this.state.recprofiledata.map((item, index)=>{
-                                        return(<ShowProfileData
-                                            key={index}
-                                            item={item}
-                                        />)
-                                    })
-                                }
-                                <div className="col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-sm-1 col-md-1 col-lg-1">
-                                    <input type="button" id="btnoverviewedit" value="Edit" className="btn btn-primary"
-                                           onClick={(()=>{
-                                               this.state.recprofiledata.map((item, index)=>{
-                                                   return(<EditProfile
-                                                       key={index}
-                                                       item={item}
-                                                   />)
-                                               })
-                                               this.props.history.push("/user/editprofile");
-                                           })}
-                                    />
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">Username:</label>
+                                    </div>
+                                    <div className="col-sm-5 col-md-5 col-lg-5 ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={this.state.username}
+                                            required
+                                            disabled
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}/>
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">Firstname:</label>
+                                    </div>
+                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={this.state.firstname}
+                                            onChange={(event) => {
+                                                this.setState({
+                                                    // ...this.state,
+                                                    firstname: event.target.value
+                                                });
+                                                this.userdata.firstname = event.target.value;
+                                                console.log(this.userdata.firstname);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">Lastname:</label>
+                                    </div>
+                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={this.state.lastname}
+                                            onChange={(event) => {
+                                                this.setState({
+                                                    // ...this.state,
+                                                    lastname: event.target.value
+                                                });
+                                                this.userdata.lastname = event.target.value;
+                                                console.log(this.userdata.lastname);
+                                            }}
 
-                </Switch>
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">Gender:</label>
+                                    </div>
+                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={this.state.gender}
+                                            disabled
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                        <label className="form-horizontal form-control-static">DOB:</label>
+                                    </div>
+                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                        <input
+                                            type="date"
+                                            className="form-control"
+                                            value={this.state.dateofbirth}
+                                            id="txtlifeevents"
+                                            onChange={(event) => {
+                                                this.setState({
+                                                    // ...this.state,
+                                                    dateofbirth: event.target.value
+                                                });
+                                                this.userdata.dateofbirth = event.target.value;
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            {
+                                this.showSkillSet()
+                            }
+                            {
+                                this.showAddSkill()
+                            }
+                            <input type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
+                            <div className="form-group">
+                                <input type="button" className="btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
+                            </div>
+                        </form>
+                    </Card>
+                </div>
+
+
 
                 {/*<label>Interest</label><hr/>*/}
                 {/*<div className="form-group">*/}
@@ -88,5 +356,15 @@ class Profile extends Component{
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        setSkills: (data) => dispatch(setSkills(data)),
+    };
+}
 
-export default withRouter(Profile);
+function mapStateToProps(state) {
+    console.log(state);
+    return {state : state};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
