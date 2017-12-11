@@ -201,7 +201,7 @@ export const changeProfile = (payload) =>
 
 export const getprofile = () =>
     fetch (`${api}/users/getprofile`, {
-        method: 'GET',
+        method: 'post',
         credentials:'include'
     }).then(res => {
         return res;
