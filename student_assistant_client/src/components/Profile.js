@@ -193,12 +193,12 @@ class Profile extends Component{
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <div>
-                            <Button className="btn btn-info" onClick={(()=>{this.addSkill()})}>
+                        <div className="button-div">
+                            <Button className="button btn btn-info" onClick={(()=>{this.addSkill()})}>
                                 Add
                             </Button>
 
-                            <Button className="btn btn-info" onClick={(()=>{this.toggle()})}>
+                            <Button className="button btn btn-info" onClick={(()=>{this.toggle()})}>
                                 Cancel
                             </Button>
                         </div>
@@ -230,7 +230,7 @@ class Profile extends Component{
         return(
             <div className="container-fluid">
                 <div>
-                    <Card className="col-sm-12 col-md-12 col-lg-12">
+                    <div className="background">
                         <form className="form-horizontal">
                             <div className="form-group">
                                 <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
@@ -240,8 +240,9 @@ class Profile extends Component{
 
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">Username:</label>
+
                                     </div>
-                                    <div className="col-sm-5 col-md-5 col-lg-5 ">
+                                    <div className="col-sm-8 col-md-8 col-lg-8">
                                         <input
                                             type="text"
                                             className="form-control"
@@ -257,7 +258,7 @@ class Profile extends Component{
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">Firstname:</label>
                                     </div>
-                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                    <div className="col-sm-8 col-md-8 col-lg-8">
                                         <input
                                             type="text"
                                             className="form-control"
@@ -279,7 +280,7 @@ class Profile extends Component{
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">Lastname:</label>
                                     </div>
-                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                    <div className="col-sm-8 col-md-8 col-lg-8">
                                         <input
                                             type="text"
                                             className="form-control"
@@ -302,7 +303,7 @@ class Profile extends Component{
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">Gender:</label>
                                     </div>
-                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                    <div className="col-sm-8 col-md-8 col-lg-8">
                                         <input
                                             type="text"
                                             className="form-control"
@@ -317,7 +318,7 @@ class Profile extends Component{
                                     <div className="col-sm-3 col-md-3 col-lg-3">
                                         <label className="form-horizontal form-control-static">DateOfBirth:</label>
                                     </div>
-                                    <div className="col-sm-5 col-md-5 col-lg-5">
+                                    <div className="col-sm-8 col-md-8 col-lg-8">
                                         <input
                                             type="date"
                                             className="form-control"
@@ -336,12 +337,12 @@ class Profile extends Component{
                             </div>
                             <div className="form-group">
                                 <div className="col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-                                    <div className="col-sm-3 col-md-3 col-lg-3">
+                                    <div className="profile col-sm-5 col-md-5 col-lg-5">
                                         <label className="form-horizontal form-control-static">Skill Sets:</label>
 
                                     </div>
                                 </div>
-                                <div className="profile col-sm-5 col-md-5 col-lg-5">
+                                <div className="profile col-sm-8 col-md-8 col-lg-8">
                                     {
                                         this.showSkillSet()
                                     }
@@ -352,13 +353,13 @@ class Profile extends Component{
                                 this.showAddSkill()
                             }
                             <div className="button-div btn-toolbar">
-                                <input className="button btn btn-primary" type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
+                                <input className="button-right btn btn-primary" type="button" onClick={(()=>{this.toggle()})}  value="Add Skills"/>
 
-                                <input type="button" className="button btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
+                                <input type="button" className="button-left btn btn-primary" value="Save" onClick={(()=>{this.handleSubmitProfileChange()})}/>
                             </div>
                         </form>
 
-                    </Card>
+                    </div>
                 </div>
 
 
