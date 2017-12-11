@@ -33,6 +33,8 @@ import {connect} from 'react-redux';
 import {setOpenIssues, setResolvedIssues, addOpenIssues, addResolvedIssues} from '../action/userissues';
 import {setSkills} from '../action/setskills';
 import {comment} from '../action/Comment';
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class Issues extends Component {
 
@@ -126,7 +128,9 @@ class Issues extends Component {
             else {
                 this.setState({
                     ...this.state,
+
                     message:"Error while fetching skills"
+
                 })
             }
         });
@@ -139,6 +143,7 @@ class Issues extends Component {
             if(response.status===201){
                 response.json().then((data)=>{
                     this.props.addOpenIssues(data);
+                    showAlert("Raised Issue Succssfully!","info",this);
                 });
             }
             else {
@@ -153,6 +158,7 @@ class Issues extends Component {
             console.log(response.status);
             if(response.status===201){
                 this.props.addResolvedIssues(issue);
+                showAlert("Issue marked as Resolved","info",this);
             }
             else {
                 // console.log("Error");
@@ -244,6 +250,7 @@ class Issues extends Component {
 
         return (
             <div className="container-fluid">
+                <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
                 <div>
                     <button className="btn btn-primary" value="Raise Issue" onClick={(()=>{
                         this.toggle()
