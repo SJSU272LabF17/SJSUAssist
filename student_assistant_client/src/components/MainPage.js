@@ -34,6 +34,7 @@ class MainPage extends Component {
                         message: "You have successfully signed up. Please login here",
                         username: userdata.username
                     });
+                    showAlert("Successfully signed up!","info",this);
                     this.handlePageChange("/home/login")
                 } else if (status === 401) {
                     console.log("State");
@@ -43,6 +44,7 @@ class MainPage extends Component {
                         message: "Error while adding userdata"
                     });
                     // this.props.history.push("/signup")
+                    showAlert("Please Enter Valid data","error",this);
                 }
                 else if(status === 301){
                     this.setState({
@@ -50,6 +52,7 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "Email Id already exists. Try to sign up with another Email Id"
                     });
+                    showAlert("Email Id already exist","error",this);
                     // this.props.history.push("/signup")
                 }
                 else
@@ -59,6 +62,7 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "Error while signing up."
                     });
+                    showAlert("Something went wrong","error",this);
                 }
             });
     });
@@ -94,6 +98,7 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "Error on server side while fetching data"
                     });
+                    showAlert("Server is down, Please try after some time","error",this);
                     // this.props.history.push("/login")
                 }
             });
@@ -109,6 +114,7 @@ class MainPage extends Component {
                         isLoggedIn: false,
                         message: "User Logged out"
                     });
+                    showAlert("Logged out Successfully","info",this);
                     this.props.setOpenIssues([]);
                     this.props.setResolvedIssues([]);
                     this.handlePageChange("/");
@@ -119,6 +125,7 @@ class MainPage extends Component {
                         isLoggedIn: true,
                         message: "Error on server side while fetching data"
                     });
+                    showAlert("Something went wrong","error",this);
                 }
             });
     });
