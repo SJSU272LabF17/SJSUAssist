@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import * as API from '../api/API';
 import {Route,withRouter,Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
+import AlertContainer from 'react-alert';
+import {alertOptions, showAlert} from "../alertConfig";
 
 class Responsetoissues extends Component{
 
@@ -9,6 +11,7 @@ class Responsetoissues extends Component{
     {
         return(
         <div>
+            <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
             <div class="table table-striped-jay">
                 <h2>
                 Response to the issue
@@ -39,6 +42,7 @@ class Responsetoissues extends Component{
                         then((response)=>{
 
                             console.log(response);
+                            showAlert("Issue Resolved","info",this);
 
                         });
                         //
