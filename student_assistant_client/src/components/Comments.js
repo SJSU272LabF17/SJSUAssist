@@ -102,6 +102,9 @@ class Comments extends Component{
 
                 </h2>
                 <h4>
+                    {this.props.resolveissue.issues.issuecontent}
+                </h4>
+                <h4>
                 {this.display()}
                 </h4>
             </div>
