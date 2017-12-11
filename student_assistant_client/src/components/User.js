@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import dropboxLogo from '../images/dropbox.png'
 import * as API from '../api/API';
 import { Route, withRouter, Switch} from 'react-router-dom';
 import Profile from './Profile';
 import Activity from './Activity';
-import EditProfile from './EditProfile';
 import Home from './Home';
 import Issues from './Issues';
 import home from '../images/homeee.svg'
@@ -162,14 +160,6 @@ class User extends Component {
                                     <Route path="/user/profile" render={() => (
                                         <div>
                                             <Profile
-                                                username={this.props.username}
-                                                handlePageChange={this.props.handlePageChange}
-                                            />
-                                        </div>
-                                    )}/>
-                                    <Route path="/user/editprofile" render={() => (
-                                        <div>
-                                            <EditProfile
                                                 username={this.props.username}
                                                 handlePageChange={this.props.handlePageChange}
                                             />

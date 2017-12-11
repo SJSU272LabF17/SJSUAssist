@@ -122,7 +122,7 @@ router.get('/getprofile', function (req, res, next) {
                         throw err;
                     }
                     if (results.length === 1) {
-                        res.status(201).send(results);
+                        res.status(201).send(results[0]);
                     }
                     else {
                         res.status(301).send({"message":"Failed to fetch Profile Data"});
@@ -355,6 +355,53 @@ router.post('/resolveIssue', function (req, res, next) {
         res.status(301).send({"message" : "Error while fetching activity data"});
     }
 });
+
+router.post('/addSkill', function (req, res, next) {
+    try {
+        console.log("In fetching profile");
+        if(req.session.username!==null || req.session.username!==undefined) {
+            let username = req.session.username;
+            console.log(req.body);
+            mongo.connect(mongoURL,function () {
+                let user = mongo.collection("users");
+                user.updateOne({_id : username}, {
+                    $push:{
+                        skillset:{
+                            _id : req.body.skillId
+                        }
+                    }
+                }, function (err, results) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            console.log(results);
+                            if (results.result.nModified === 1) {
+                                res.status(201).end();
+                            }
+                            else {
+                                res.status(301).end();
+                            }
+                        }
+                        else {
+                            res.status(301).end();
+                        }
+                    }
+                });
+            });
+        }
+        else{
+            res.status(203).send({"message":"Session Expired. Please Login Again"});
+        }
+    }
+    catch (e){
+        console.log(e);
+        console.log("error");
+        res.status(301).send({"message" : "Error while fetching activity data"});
+    }
+});
+
 
 
 
