@@ -7,7 +7,7 @@ let url1= "mongodb://student:student@studentassistantsystem-shard-00-00-5nj8l.mo
  * Connects to the MongoDB Database with the provided URL
  */
 exports.connect = function(url, callback){
-    MongoClient.connect(url1, function(err, _db){
+    MongoClient.connect(url1, {poolSize: 10}, function(err, _db){
         if (err) { throw new Error('Could not connect: '+err); }
         db = _db;
         connected = true;
