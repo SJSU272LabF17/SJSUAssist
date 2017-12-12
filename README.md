@@ -26,3 +26,8 @@ who can provide the assistance or knowledge based on his/her registered skill se
 Every student will be able to post rating about each other so that user can select the best person or in
 case of his/her unavailability he/she can refer to another set of people with good rating..
 Project Methodology: We will use MERN Stack to build the above system.
+
+
+**Website Architecture**:
+
+
