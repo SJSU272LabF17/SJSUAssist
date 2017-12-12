@@ -92,10 +92,10 @@ class Comments extends Component{
         var styles = {
             background:'white'
         };
-        <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
+
         return(
             <div>
-
+                <AlertContainer ref={a => this.msg = a} {...alertOptions}/>
             <div style={styles}>
                 <h2>
                     Comments
